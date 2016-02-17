@@ -4,6 +4,6 @@ parameters:
 #    parameter_name: value
 
 services:
-#    service_name:
-#        class: AppBundle\Directory\ClassName
+    get_simple_place:
+        class: LotrBundle\Controller\PlacesController
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]

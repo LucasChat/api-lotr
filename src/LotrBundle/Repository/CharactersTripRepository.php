@@ -29,4 +29,22 @@ class CharactersTripRepository extends EntityRepository
 
         return $result;
     }
+
+    public function getCharactersTripByCoord($coordX, $coordY)
+    {
+        $query = $this->createQueryBuilder('c')
+            ->where('c.coordx = :coordX AND c.coordy = :coordY')
+            ->setParameter('coordX', $coordX)
+            ->setParameter('coordY', $coordY)
+            ->getQuery();
+
+        $result = $query->getResult();
+
+        if(!$result)
+        {
+            $result = "error : coordinates not found not found";
+        }
+
+        return $result;
+    }
 }
