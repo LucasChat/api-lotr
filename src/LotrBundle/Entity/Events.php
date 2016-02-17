@@ -50,16 +50,16 @@ class Events
     private $duration;
 
     /**
-     * @var boolean
+     * @var integer
      *
-     * @ORM\Column(name="coordX", type="boolean", nullable=false)
+     * @ORM\Column(name="coordX", type="integer", nullable=false)
      */
     private $coordx;
 
     /**
-     * @var boolean
+     * @var integer
      *
-     * @ORM\Column(name="coordY", type="boolean", nullable=false)
+     * @ORM\Column(name="coordY", type="integer", nullable=false)
      */
     private $coordy;
 
@@ -170,7 +170,7 @@ class Events
     /**
      * Set coordx
      *
-     * @param boolean $coordx
+     * @param integer $coordx
      * @return Events
      */
     public function setCoordx($coordx)
@@ -183,7 +183,7 @@ class Events
     /**
      * Get coordx
      *
-     * @return boolean 
+     * @return integer
      */
     public function getCoordx()
     {
@@ -193,7 +193,7 @@ class Events
     /**
      * Set coordy
      *
-     * @param boolean $coordy
+     * @param integer $coordy
      * @return Events
      */
     public function setCoordy($coordy)
@@ -206,7 +206,7 @@ class Events
     /**
      * Get coordy
      *
-     * @return boolean 
+     * @return integer
      */
     public function getCoordy()
     {
