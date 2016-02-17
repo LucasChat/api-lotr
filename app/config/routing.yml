@@ -7,10 +7,7 @@ app:
     resource: "@AppBundle/Controller/"
     type:     annotation
 
-get_characters:
-    pattern:  /characters.{_format}
-    defaults: { _controller: LotrBundle:Characters:getCharacters, _format: json }
-
+# Character Alone
 get_character:
     pattern:  /character/{slug}.{_format}
     defaults: { _controller: LotrBundle:Characters:getCharacter, _format: json }
@@ -18,3 +15,13 @@ get_character:
 get_character_by_date:
     pattern:  /character/{slug}/date/{date}.{_format}
     defaults: { _controller: LotrBundle:Characters:getCharacterTripByDate, _format: json }
+
+# Multi Charater
+get_characters:
+    pattern:  /characters.{_format}
+    defaults: { _controller: LotrBundle:Characters:getCharacters, _format: json }
+
+# Places
+get_places:
+    pattern:  /places.{_format}
+    defaults: { _controller: LotrBundle:Places:getPlaces, _format: json }
