@@ -28,4 +28,14 @@ class PlacesController extends FOSRestController
         $view = $this->view($place);
         return $this->handleView($view);
     }
+
+    public function getPlaceAllCharactersAction($slug)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $place = $em->getRepository('LotrBundle:Places')->getTest($slug);
+
+        $view = $this->view($place);
+        return $this->handleView($view);
+    }
 }
