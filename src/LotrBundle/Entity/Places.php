@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Places
  *
  * @ORM\Table(name="places")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="LotrBundle\Repository\CharactersTripRepository")
  */
 class Places
 {
