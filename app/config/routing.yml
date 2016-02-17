@@ -25,3 +25,7 @@ get_characters:
 get_places:
     pattern:  /places.{_format}
     defaults: { _controller: LotrBundle:Places:getPlaces, _format: json }
+
+get_place:
+    pattern:  /place/{slug}.{_format}
+    defaults: { _controller: LotrBundle:Places:getPlace, _format: json }

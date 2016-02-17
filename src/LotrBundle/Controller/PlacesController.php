@@ -17,4 +17,15 @@ class PlacesController extends FOSRestController
         $view = $this->view($places);
         return $this->handleView($view);
     }
+
+
+    public function getPlaceAction($slug)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $place = $em->getRepository('LotrBundle:Places')->findBySlug($slug);
+
+        $view = $this->view($place);
+        return $this->handleView($view);
+    }
 }
