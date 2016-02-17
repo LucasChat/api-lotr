@@ -47,4 +47,24 @@ class CharactersTripRepository extends EntityRepository
 
         return $result;
     }
+
+
+    public function getCharactersTripByCoordAndDate($coordX, $coordY, $date)
+    {
+        $query = $this->createQueryBuilder('c')
+            ->where('c.coordx = :coordX AND c.coordy = :coordY AND c.date = :date')
+            ->setParameter('coordX', $coordX)
+            ->setParameter('coordY', $coordY)
+            ->setParameter('date', $date)
+            ->getQuery();
+
+        $result = $query->getResult();
+
+        if(!$result)
+        {
+            $result = "error : nobody here at this date";
+        }
+
+        return $result;
+    }
 }

@@ -42,7 +42,31 @@ class PlacesController extends FOSRestController
         $place = $em->getRepository('LotrBundle:Places')->findBySlug($slug);
         if($place)
         {
-            $characters_trip = $em->getRepository('LotrBundle:CharactersTrip')->getCharactersTripByCoord($place[0]->getCoordx(), $place[0]->getCoordy());
+            $characters_trip = $em->getRepository('LotrBundle:CharactersTrip')
+                ->getCharactersTripByCoord($place[0]->getCoordx(), $place[0]->getCoordy());
+            array_push($results, $place);
+            array_push($results, $characters_trip);
+        }
+        else
+        {
+            array_push($results, 'No place founded');
+        }
+
+        $view = $this->view($results);
+        return $this->handleView($view);
+    }
+
+    public function getPlaceAllCharactersByDateAction($slug, $date)
+    {
+        $results = [];
+
+        $em = $this->getDoctrine()->getManager();
+
+        $place = $em->getRepository('LotrBundle:Places')->findBySlug($slug);
+        if($place)
+        {
+            $characters_trip = $em->getRepository('LotrBundle:CharactersTrip')
+                ->getCharactersTripByCoordAndDate($place[0]->getCoordx(), $place[0]->getCoordy(), $date);
             array_push($results, $place);
             array_push($results, $characters_trip);
         }
