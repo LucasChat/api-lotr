@@ -36,16 +36,16 @@ class Places
     private $name;
 
     /**
-     * @var boolean
+     * @var integer
      *
-     * @ORM\Column(name="coordX", type="boolean", nullable=false)
+     * @ORM\Column(name="coordX", type="integer", nullable=false)
      */
     private $coordx;
 
     /**
-     * @var boolean
+     * @var integer
      *
-     * @ORM\Column(name="coordY", type="boolean", nullable=false)
+     * @ORM\Column(name="coordY", type="integer", nullable=false)
      */
     private $coordy;
 
@@ -110,7 +110,7 @@ class Places
     /**
      * Set coordx
      *
-     * @param boolean $coordx
+     * @param integer $coordx
      * @return Places
      */
     public function setCoordx($coordx)
@@ -123,7 +123,7 @@ class Places
     /**
      * Get coordx
      *
-     * @return boolean 
+     * @return integer
      */
     public function getCoordx()
     {
@@ -133,7 +133,7 @@ class Places
     /**
      * Set coordy
      *
-     * @param boolean $coordy
+     * @param integer $coordy
      * @return Places
      */
     public function setCoordy($coordy)
@@ -146,7 +146,7 @@ class Places
     /**
      * Get coordy
      *
-     * @return boolean 
+     * @return integer
      */
     public function getCoordy()
     {
