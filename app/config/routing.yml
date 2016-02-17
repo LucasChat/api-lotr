@@ -33,3 +33,7 @@ get_place:
 get_place_all_characters:
     pattern:  /place/{slug}/characters.{_format}
     defaults: { _controller: LotrBundle:Places:getPlaceAllCharacters, _format: json }
+
+get_place_all_characters_by_date:
+    pattern:  /place/{slug}/characters/date/{date}.{_format}
+    defaults: { _controller: LotrBundle:Places:getPlaceAllCharactersByDate, _format: json }
