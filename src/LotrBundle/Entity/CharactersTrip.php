@@ -1,0 +1,191 @@
+<?php
+
+namespace LotrBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use LotrBundle\Entity\Characters;
+
+/**
+ * CharactersTrip
+ *
+ * @ORM\Table(name="characters_trip")
+ * @ORM\Entity(repositoryClass="LotrBundle\Repository\CharactersTripRepository")
+ */
+class CharactersTrip
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+    /**
+     * @var \LotrBundle\Entity\Characters
+     *
+     * @ORM\ManyToOne(targetEntity="Characters")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="character_id", referencedColumnName="id")
+     * })
+     */
+    private $character;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date", type="date", nullable=false)
+     */
+    private $date;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="coordX", type="integer", nullable=false)
+     */
+    private $coordx;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="coordY", type="integer", nullable=false)
+     */
+    private $coordy;
+
+    /**
+     * @var \LotrBundle\Entity\Status
+     *
+     * @ORM\ManyToOne(targetEntity="Status")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="status", referencedColumnName="id")
+     * })
+     */
+    private $status;
+
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set character
+     *
+     * @param \LotrBundle\Entity\Characters $character
+     * @return CharactersTrip
+     */
+    public function setCharacter($characters)
+    {
+        $this->character = $characters;
+
+        return $this;
+    }
+
+    /**
+     * Get character
+     *
+     * @return \LotrBundle\Entity\Characters
+     */
+    public function getCharacter()
+    {
+        return $this->character;
+    }
+
+    /**
+     * Set date
+     *
+     * @param \DateTime $date
+     * @return CharactersTrip
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return \DateTime 
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
+     * Set coordx
+     *
+     * @param integer $coordx
+     * @return CharactersTrip
+     */
+    public function setCoordx($coordx)
+    {
+        $this->coordx = $coordx;
+
+        return $this;
+    }
+
+    /**
+     * Get coordx
+     *
+     * @return integer
+     */
+    public function getCoordx()
+    {
+        return $this->coordx;
+    }
+
+    /**
+     * Set coordy
+     *
+     * @param integer $coordy
+     * @return CharactersTrip
+     */
+    public function setCoordy($coordy)
+    {
+        $this->coordy = $coordy;
+
+        return $this;
+    }
+
+    /**
+     * Get coordy
+     *
+     * @return integer
+     */
+    public function getCoordy()
+    {
+        return $this->coordy;
+    }
+
+    /**
+     * Set status
+     *
+     * @param string $status
+     * @return CharactersTrip
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return string 
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+}

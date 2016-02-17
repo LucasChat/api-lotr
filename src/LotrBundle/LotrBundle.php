@@ -1,0 +1,9 @@
+<?php
+
+namespace LotrBundle;
+
+use Symfony\Component\HttpKernel\Bundle\Bundle;
+
+class LotrBundle extends Bundle
+{
+}
