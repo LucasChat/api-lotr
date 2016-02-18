@@ -16,6 +16,10 @@ get_character_by_date:
     pattern:  /character/{slug}/date/{date}.{_format}
     defaults: { _controller: LotrBundle:Characters:getCharacterTripByDate, _format: json }
 
+get_character_by_place:
+    pattern:  /character/{slug}/place/{place}.{_format}
+    defaults: { _controller: LotrBundle:Characters:getCharacterTripByPlace, _format: json }
+
 # Multi Charater
 get_characters:
     pattern:  /characters.{_format}
