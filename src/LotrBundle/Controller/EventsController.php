@@ -17,4 +17,14 @@ class EventsController extends FOSRestController
 		$view = $this->view($events);
 		return $this->handleView($view);
 	}
+
+	public function getEventAction($slug)
+	{
+		$em = $this->getDoctrine()->getManager();
+
+		$events = $em->getRepository('LotrBundle:Events')->findBySlug($slug);
+
+		$view = $this->view($events);
+		return $this->handleView($view);
+	}
 }
