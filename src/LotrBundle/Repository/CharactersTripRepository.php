@@ -112,4 +112,22 @@ class CharactersTripRepository extends EntityRepository
 
         return $result;
     }
+
+    public function getCharactersTripByPeriodForAll($date, $duration)
+    {
+        $query = $this->createQueryBuilder('c')
+            ->where('c.date BETWEEN :date AND :date_after')
+            ->setParameter('date', $date)
+            ->setParameter('date_after', date('Y-m-d',$date->getTimestamp() + (60*60*24*($duration - 1))))
+            ->getQuery();
+
+        $result = $query->getResult();
+
+        if(!$result)
+        {
+            $result = "error : nobody here at this date";
+        }
+
+        return $result;
+    }
 }
