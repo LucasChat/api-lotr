@@ -12,12 +12,12 @@ use Doctrine\ORM\EntityRepository;
  */
 class CharactersTripRepository extends EntityRepository
 {
-    public function getCharactersTripByDateForOne($slug, $date)
+    public function getCharactersTripByDateForOne($character, $date)
     {
         $query = $this->createQueryBuilder('c')
             ->where('c.date = :date AND c.character = :slug')
             ->setParameter('date', $date)
-            ->setParameter('slug', $slug)
+            ->setParameter('slug', $character)
             ->getQuery();
 
         $result = $query->getResult();
@@ -30,11 +30,11 @@ class CharactersTripRepository extends EntityRepository
         return $result;
     }
 
-    public function getOneCharacterTripByCoordForOne($id, $coordX, $coordY)
+    public function getCharacterTripByCoordForOne($character, $coordX, $coordY)
     {
         $query = $this->createQueryBuilder('c')
             ->where('c.character = :character AND c.coordx = :coordX AND c.coordy = :coordY')
-            ->setParameter('character', $id)
+            ->setParameter('character', $character)
             ->setParameter('coordX', $coordX)
             ->setParameter('coordY', $coordY)
             ->getQuery();
@@ -43,11 +43,33 @@ class CharactersTripRepository extends EntityRepository
 
         if(!$result)
         {
-            $result = "error : this guy was never passed here";
+            $result = "error : " . $character[0]->getSlug() . " never passed here";
         }
 
         return $result;
     }
+
+    public function getOneCharacterTripByCoordAndDateForOne($character, $coordX, $coordY, $date)
+    {
+        $query = $this->createQueryBuilder('c')
+            ->where('c.character = :character AND c.coordx = :coordX AND c.coordy = :coordY AND c.date = :date')
+            ->setParameter('character', $character)
+            ->setParameter('coordX', $coordX)
+            ->setParameter('coordY', $coordY)
+            ->setParameter('date', $date)
+            ->getQuery();
+
+        $result = $query->getResult();
+
+        if(!$result)
+        {
+            $result = "error : " . $character[0]->getSlug() . " wasn't here at this date";
+        }
+
+        return $result;
+    }
+
+
 
 
 
