@@ -6,6 +6,7 @@ use FOS\RestBundle\Controller\FOSRestController;
 use LotrBundle\LotrBundle;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class PlacesController extends FOSRestController
 {
@@ -32,25 +33,21 @@ class PlacesController extends FOSRestController
 
     public function getPlaceAllCharactersAction($slug)
     {
-        $results = [];
-
         $em = $this->getDoctrine()->getManager();
 
 //        $place_test = $this->getPlaceAction($slug)->getContent(true);
 //        $placeJson = $this->get('jms_serializer')->deserialize($place, 'LotrBundle\Entity\Places', 'json');
 
         $place = $em->getRepository('LotrBundle:Places')->findBySlug($slug);
-        if($place)
+        if(!$place)
         {
-            $characters_trip = $em->getRepository('LotrBundle:CharactersTrip')
-                ->getCharactersTripByCoord($place[0]->getCoordx(), $place[0]->getCoordy());
-            array_push($results, $place);
-            array_push($results, $characters_trip);
+            throw new NotFoundHttpException("Place not found");
         }
-        else
-        {
-            array_push($results, 'No place founded');
-        }
+        $characters_trip = $em->getRepository('LotrBundle:CharactersTrip')
+            ->getCharactersTripByCoordForAll($place[0]->getCoordx(), $place[0]->getCoordy());
+
+        $results = [];
+        array_push($results, $place, $characters_trip);
 
         $view = $this->view($results);
         return $this->handleView($view);
@@ -66,7 +63,7 @@ class PlacesController extends FOSRestController
         if($place)
         {
             $characters_trip = $em->getRepository('LotrBundle:CharactersTrip')
-                ->getCharactersTripByCoordAndDate($place[0]->getCoordx(), $place[0]->getCoordy(), $date);
+                ->getCharactersTripByCoordAndDateForAll($place[0]->getCoordx(), $place[0]->getCoordy(), $date);
             array_push($results, $place);
             array_push($results, $characters_trip);
         }

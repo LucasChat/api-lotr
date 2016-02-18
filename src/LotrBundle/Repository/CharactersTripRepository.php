@@ -12,7 +12,7 @@ use Doctrine\ORM\EntityRepository;
  */
 class CharactersTripRepository extends EntityRepository
 {
-    public function getCharactersTripByDate($slug, $date)
+    public function getCharactersTripByDateForOne($slug, $date)
     {
         $query = $this->createQueryBuilder('c')
             ->where('c.date = :date AND c.character = :slug')
@@ -30,7 +30,30 @@ class CharactersTripRepository extends EntityRepository
         return $result;
     }
 
-    public function getCharactersTripByCoord($coordX, $coordY)
+    public function getOneCharacterTripByCoordForOne($id, $coordX, $coordY)
+    {
+        $query = $this->createQueryBuilder('c')
+            ->where('c.character = :character AND c.coordx = :coordX AND c.coordy = :coordY')
+            ->setParameter('character', $id)
+            ->setParameter('coordX', $coordX)
+            ->setParameter('coordY', $coordY)
+            ->getQuery();
+
+        $result = $query->getResult();
+
+        if(!$result)
+        {
+            $result = "error : this guy was never passed here";
+        }
+
+        return $result;
+    }
+
+
+
+
+
+    public function getCharactersTripByCoordForAll($coordX, $coordY)
     {
         $query = $this->createQueryBuilder('c')
             ->where('c.coordx = :coordX AND c.coordy = :coordY')
@@ -42,14 +65,14 @@ class CharactersTripRepository extends EntityRepository
 
         if(!$result)
         {
-            $result = "error : coordinates not found not found";
+            $result = "error : coordinates not found";
         }
 
         return $result;
     }
 
 
-    public function getCharactersTripByCoordAndDate($coordX, $coordY, $date)
+    public function getCharactersTripByCoordAndDateForAll($coordX, $coordY, $date)
     {
         $query = $this->createQueryBuilder('c')
             ->where('c.coordx = :coordX AND c.coordy = :coordY AND c.date = :date')
