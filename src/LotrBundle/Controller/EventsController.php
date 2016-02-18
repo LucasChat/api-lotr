@@ -50,4 +50,21 @@ class EventsController extends FOSRestController
 		$view = $this->view($charactes_position);
 		return $this->handleView($view);
 	}
+
+	public function getEventPresentCharactersAction($slug)
+	{
+		$em = $this->getDoctrine()->getManager();
+
+		$event = $em->getRepository('LotrBundle:Events')->findBySlug($slug);
+
+		if(!$event)
+		{
+			throw new NotFoundHttpException("Event not found");
+		}
+
+		$charactes_position = $em->getRepository('LotrBundle:CharactersTrip')->getCharactersTripByPeriodAndPresenceForAll($event[0]->getDate(), $event[0]->getDuration(), $event[0]->getCoordx(), $event[0]->getCoordy());
+
+		$view = $this->view($charactes_position);
+		return $this->handleView($view);
+	}
 }
