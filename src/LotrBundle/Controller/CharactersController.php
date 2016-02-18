@@ -110,9 +110,35 @@ class CharactersController extends FOSRestController
         }
 
         $trip = $em->getRepository('LotrBundle:CharactersTrip')
-            ->getOneCharactersTripByPeriodForOne($character, $date1, $date2);
+            ->getCharactersTripByPeriodForOne($character, $date1, $date2);
 
         $view = $this->view($trip);
+        return $this->handleView($view);
+    }
+
+    public function getCharacterTripByPlaceAndPeriodAction($slug, $place, $date1, $date2)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $character = $em->getRepository('LotrBundle:Characters')->findBySlug($slug);
+        if(!$character)
+        {
+            throw new NotFoundHttpException("Character not found");
+        }
+
+        $place = $em->getRepository('LotrBundle:Places')->findBySlug($place);
+        if(!$place)
+        {
+            throw new NotFoundHttpException("Place not found");
+        }
+
+        $trip = $em->getRepository('LotrBundle:CharactersTrip')
+            ->getOneCharactersTripByPlaceAndPeriodForOne($character, $place[0]->getCoordx(), $place[0]->getCoordy(), $date1, $date2);
+
+        $results = [];
+        array_push($results, $place, $trip);
+
+        $view = $this->view($results);
         return $this->handleView($view);
     }
 
