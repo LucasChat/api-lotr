@@ -41,3 +41,8 @@ get_place_all_characters:
 get_place_all_characters_by_date:
     pattern:  /place/{slug}/characters/date/{date}.{_format}
     defaults: { _controller: LotrBundle:Places:getPlaceAllCharactersByDate, _format: json }
+
+# Events
+get_events:
+    pattern: /events.{_format}
+    defaults: { _controller: LotrBundle:Events:getEvents, _format: json }
