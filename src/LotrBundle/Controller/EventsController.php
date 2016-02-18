@@ -5,6 +5,7 @@ namespace LotrBundle\Controller;
 use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class EventsController extends FOSRestController
 {
@@ -22,9 +23,14 @@ class EventsController extends FOSRestController
 	{
 		$em = $this->getDoctrine()->getManager();
 
-		$events = $em->getRepository('LotrBundle:Events')->findBySlug($slug);
+		$event = $em->getRepository('LotrBundle:Events')->findBySlug($slug);
+		
+		if(!$event)
+		{
+			throw new NotFoundHttpException("Event not found");
+		}
 
-		$view = $this->view($events);
+		$view = $this->view($event);
 		return $this->handleView($view);
 	}
 }
