@@ -30,7 +30,7 @@ class CharactersTripRepository extends EntityRepository
         return $result;
     }
 
-    public function getCharacterTripByCoordForOne($character, $coordX, $coordY)
+    public function getCharactersTripByCoordForOne($character, $coordX, $coordY)
     {
         $query = $this->createQueryBuilder('c')
             ->where('c.character = :character AND c.coordx = :coordX AND c.coordy = :coordY')
@@ -49,7 +49,7 @@ class CharactersTripRepository extends EntityRepository
         return $result;
     }
 
-    public function getOneCharacterTripByCoordAndDateForOne($character, $coordX, $coordY, $date)
+    public function getCharactersTripByCoordAndDateForOne($character, $coordX, $coordY, $date)
     {
         $query = $this->createQueryBuilder('c')
             ->where('c.character = :character AND c.coordx = :coordX AND c.coordy = :coordY AND c.date = :date')
@@ -64,6 +64,25 @@ class CharactersTripRepository extends EntityRepository
         if(!$result)
         {
             $result = "error : " . $character[0]->getSlug() . " wasn't here at this date";
+        }
+
+        return $result;
+    }
+
+    public function getOneCharactersTripByPeriodForOne($character, $date1, $date2)
+    {
+        $query = $this->createQueryBuilder('c')
+            ->where('c.character = :character AND c.date BETWEEN :date1 AND :date2')
+            ->setParameter('date1', $date1)
+            ->setParameter('date2', $date2)
+            ->setParameter('character', $character)
+            ->getQuery();
+
+        $result = $query->getResult();
+
+        if(!$result)
+        {
+            $result = "error : period not found";
         }
 
         return $result;
