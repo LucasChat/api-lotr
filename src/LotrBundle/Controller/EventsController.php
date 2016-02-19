@@ -57,12 +57,16 @@ class EventsController extends FOSRestController
 
 		$event = $em->getRepository('LotrBundle:Events')->findBySlug($slug);
 
+		$date1 = $event[0]->getDate();
+		$date2 = $date1->modify('+' . ($event[0]->getDuration()) - 1 . ' day');
+
 		if(!$event)
 		{
 			throw new NotFoundHttpException("Event not found");
 		}
 
-		$charactes_position = $em->getRepository('LotrBundle:CharactersTrip')->getCharactersTripByPeriodAndPresenceForAll($event[0]->getDate(), $event[0]->getDuration(), $event[0]->getCoordx(), $event[0]->getCoordy());
+		$charactes_position = $em->getRepository('LotrBundle:CharactersTrip')
+				->getCharactersTripByPeriodAndPresenceForAll($date1, $date2, $event[0]->getCoordx(), $event[0]->getCoordy());
 
 		$view = $this->view($charactes_position);
 		return $this->handleView($view);

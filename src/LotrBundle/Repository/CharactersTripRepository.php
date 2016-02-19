@@ -172,12 +172,12 @@ class CharactersTripRepository extends EntityRepository
         return $result;
     }
 
-    public function getCharactersTripByPeriodAndPresenceForAll($date, $duration, $coordX, $coordY)
+    public function getCharactersTripByPeriodAndPresenceForAll($date1, $date2, $coordX, $coordY)
     {
         $query = $this->createQueryBuilder('c')
-            ->where('c.coordx = :coordx AND c.coordy = :coordy AND c.date BETWEEN :date AND :date_after')
-            ->setParameter('date', $date)
-            ->setParameter('date_after', date('Y-m-d',$date->getTimestamp() + (60*60*24*($duration - 1))))
+            ->where('c.coordx = :coordx AND c.coordy = :coordy AND c.date BETWEEN :date1 AND :date2')
+            ->setParameter('date1', $date1)
+            ->setParameter('date2', $date2)
             ->setParameter('coordx', $coordX)
             ->setParameter('coordy', $coordY)
             ->getQuery();
