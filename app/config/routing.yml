@@ -36,6 +36,10 @@ get_character_position_by_event:
     pattern:  /character/{slug}/event/{event}/position.{_format}
     defaults: { _controller: LotrBundle:Characters:getCharacterTripPositionByEvent, _format: json }
 
+get_character_present_by_event:
+    pattern:  /character/{slug}/event/{event}/present.{_format}
+    defaults: { _controller: LotrBundle:Characters:getCharacterTripPresentByEvent, _format: json }
+
 # Multi Charater
 get_characters:
     pattern:  /characters.{_format}
