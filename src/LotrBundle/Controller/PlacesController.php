@@ -75,4 +75,25 @@ class PlacesController extends FOSRestController
         $view = $this->view($results);
         return $this->handleView($view);
     }
+
+    public function getPlaceAllCharactersByPeriodAction($slug, $date1, $date2)
+    {
+        $results = [];
+
+        $em = $this->getDoctrine()->getManager();
+
+        $place = $em->getRepository('LotrBundle:Places')->findBySlug($slug);
+        if($place)
+        {
+            throw new NotFoundHttpException("Place not found");
+        }
+
+        $characters_trip = $em->getRepository('LotrBundle:CharactersTrip')
+            ->getCharactersTripByPeriodAndPresenceForAll($date1, $date2, $place[0]->getCoordx(), $place[0]->getCoordy());
+        array_push($results, $place);
+        array_push($results, $characters_trip);
+
+        $view = $this->view($results);
+        return $this->handleView($view);
+    }
 }
