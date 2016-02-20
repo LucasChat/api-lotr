@@ -49,6 +49,10 @@ get_characters_by_date:
     pattern:  /characters/date/{date}.{_format}
     defaults: { _controller: LotrBundle:Characters:getCharactersByDate, _format: json }
 
+get_characters_by_period:
+    pattern:  /characters/period/{date1}/{date2}.{_format}
+    defaults: { _controller: LotrBundle:Characters:getCharactersByPeriod, _format: json }
+
 # Places
 get_places:
     pattern:  /places.{_format}
