@@ -115,6 +115,22 @@ class CharactersTripRepository extends EntityRepository
 
 
 
+    public function getCharactersTripByDateForAll($date)
+    {
+        $query = $this->createQueryBuilder('c')
+            ->where('c.date = :date')
+            ->setParameter('date', $date)
+            ->getQuery();
+
+        $result = $query->getResult();
+
+        if(!$result)
+        {
+            $result = "error : character not found not found";
+        }
+
+        return $result;
+    }
 
     public function getCharactersTripByCoordForAll($coordX, $coordY)
     {
