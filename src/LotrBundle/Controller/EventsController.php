@@ -39,18 +39,16 @@ class EventsController extends FOSRestController
 		$em = $this->getDoctrine()->getManager();
 
 		$event = $em->getRepository('LotrBundle:Events')->findBySlug($slug);
-
 		if(!$event)
 		{
 			throw new NotFoundHttpException("Event not found");
 		}
 
-		$date1 = $event[0]->getDate();
-		$date2 = $date1->modify('+' . ($event[0]->getDuration()) - 1 . ' day');
+		$trip = $em->getRepository('LotrBundle:CharactersTrip')->getCharactersTripByPeriodForAll($event[0]->getDate(), $event[0]->getDateEnd());
 
-		$charactes_position = $em->getRepository('LotrBundle:CharactersTrip')->getCharactersTripByPeriodForAll($date1, $date2);
-
-		$view = $this->view($charactes_position);
+		$results = [];
+		array_push($results, $event, $trip);
+		$view = $this->view($results);
 		return $this->handleView($view);
 	}
 
@@ -59,19 +57,17 @@ class EventsController extends FOSRestController
 		$em = $this->getDoctrine()->getManager();
 
 		$event = $em->getRepository('LotrBundle:Events')->findBySlug($slug);
-
-		$date1 = $event[0]->getDate();
-		$date2 = $date1->modify('+' . ($event[0]->getDuration()) - 1 . ' day');
-
 		if(!$event)
 		{
 			throw new NotFoundHttpException("Event not found");
 		}
 
-		$charactes_position = $em->getRepository('LotrBundle:CharactersTrip')
-				->getCharactersTripByPeriodAndPresenceForAll($date1, $date2, $event[0]->getCoordx(), $event[0]->getCoordy());
+		$trip = $em->getRepository('LotrBundle:CharactersTrip')
+				->getCharactersTripByPeriodAndPresenceForAll($event[0]->getDate(), $event[0]->getDateEnd(), $event[0]->getCoordx(), $event[0]->getCoordy());
 
-		$view = $this->view($charactes_position);
+		$results = [];
+		array_push($results, $event, $trip);
+		$view = $this->view($results);
 		return $this->handleView($view);
 	}
 }
