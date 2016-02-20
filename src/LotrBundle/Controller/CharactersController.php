@@ -1,15 +1,36 @@
 <?php
 namespace LotrBundle\Controller;
+
 use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpFoundation\Request;
+
 class CharactersController extends FOSRestController
 {
     public function getCharactersAction()
     {
+        $request = Request::createFromGlobals();
         $em = $this->getDoctrine()->getManager();
-        $characters = $em->getRepository('LotrBundle:Characters')->findAll();
+
+        if($request->query->get('who'))
+        {
+            $whos = explode('-', $request->query->get('who'));
+            $characters = [];
+            foreach($whos as $who)
+            {
+                array_push($characters, $em->getRepository('LotrBundle:Characters')->findBySlug($who));
+            }
+            if(!$characters[0])
+            {
+                throw new NotFoundHttpException("Character(s) not found");
+            }
+        }
+        else
+        {
+            $characters = $em->getRepository('LotrBundle:Characters')->findAll();
+        }
 
         $view = $this->view($characters);
         return $this->handleView($view);
@@ -17,9 +38,28 @@ class CharactersController extends FOSRestController
 
     public function getCharactersByDateAction($date)
     {
+        $request = Request::createFromGlobals();
         $em = $this->getDoctrine()->getManager();
-        $trip = $em->getRepository('LotrBundle:CharactersTrip')
-            ->getCharactersTripByDateForAll($date);
+
+        if($request->query->get('who'))
+        {
+            $whos = explode('-', $request->query->get('who'));
+            $trip = [];
+            foreach($whos as $who)
+            {
+                $character = $em->getRepository('LotrBundle:Characters')->findBySlug($who);
+                array_push($trip, $em->getRepository('LotrBundle:CharactersTrip')->getCharactersTripByDateForOne($character, $date));
+            }
+            if(!$trip[0])
+            {
+                throw new NotFoundHttpException("Character(s) not found");
+            }
+        }
+        else
+        {
+            $trip = $em->getRepository('LotrBundle:CharactersTrip')
+                ->getCharactersTripByDateForAll($date);
+        }
 
         $view = $this->view($trip);
         return $this->handleView($view);
@@ -27,9 +67,28 @@ class CharactersController extends FOSRestController
 
     public function getCharactersByPeriodAction($date1, $date2)
     {
+        $request = Request::createFromGlobals();
         $em = $this->getDoctrine()->getManager();
-        $trip = $em->getRepository('LotrBundle:CharactersTrip')
-            ->getCharactersTripByPeriodForAll($date1, $date2);
+
+        if($request->query->get('who'))
+        {
+            $whos = explode('-', $request->query->get('who'));
+            $trip = [];
+            foreach($whos as $who)
+            {
+                $character = $em->getRepository('LotrBundle:Characters')->findBySlug($who);
+                array_push($trip, $em->getRepository('LotrBundle:CharactersTrip')->getCharactersTripByPeriodForOne($character, $date1, $date2));
+            }
+            if(!$trip[0])
+            {
+                throw new NotFoundHttpException("Character(s) not found");
+            }
+        }
+        else
+        {
+            $trip = $em->getRepository('LotrBundle:CharactersTrip')
+                ->getCharactersTripByPeriodForAll($date1, $date2);
+        }
 
         $view = $this->view($trip);
         return $this->handleView($view);
