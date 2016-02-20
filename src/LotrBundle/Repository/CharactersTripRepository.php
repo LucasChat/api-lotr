@@ -126,7 +126,7 @@ class CharactersTripRepository extends EntityRepository
 
         if(!$result)
         {
-            $result = "error : character not found not found";
+            $result = "error : date not found";
         }
 
         return $result;
