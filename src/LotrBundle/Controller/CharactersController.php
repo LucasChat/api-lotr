@@ -15,6 +15,16 @@ class CharactersController extends FOSRestController
         return $this->handleView($view);
     }
 
+    public function getCharactersByDateAction($date)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $trip = $em->getRepository('LotrBundle:CharactersTrip')
+            ->getCharactersTripByDateForAll($date);
+
+        $view = $this->view($trip);
+        return $this->handleView($view);
+    }
+
 
 
 
