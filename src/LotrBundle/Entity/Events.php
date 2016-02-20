@@ -43,11 +43,11 @@ class Events
     private $date;
 
     /**
-     * @var integer
+     * @var \DateTime
      *
-     * @ORM\Column(name="duration", type="integer", nullable=false)
+     * @ORM\Column(name="dateEnd", type="date", nullable=false)
      */
-    private $duration;
+    private $dateEnd;
 
     /**
      * @var integer
@@ -145,26 +145,26 @@ class Events
     }
 
     /**
-     * Set duration
+     * Set dateEnd
      *
-     * @param integer $duration
+     * @param \DateTime $dateEnd
      * @return Events
      */
-    public function setDuration($duration)
+    public function setDateEnd($dateEnd)
     {
-        $this->duration = $duration;
+        $this->dateEnd = $dateEnd;
 
         return $this;
     }
 
     /**
-     * Get duration
+     * Get dateEnd
      *
-     * @return integer 
+     * @return \DateTime
      */
-    public function getDuration()
+    public function getDateEnd()
     {
-        return $this->duration;
+        return $this->dateEnd;
     }
 
     /**
