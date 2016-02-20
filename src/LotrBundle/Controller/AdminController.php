@@ -18,10 +18,13 @@ class AdminController extends FOSRestController
     {
         $em = $this->getDoctrine()->getManager();
 
-        return $this->render('LotrBundle:Admin:index.html.twig', array(
+        return $this->render('admin/index.html.twig', array(
             'characters' => $em->getRepository('LotrBundle:Characters')->findAll(),
             'places' => $em->getRepository('LotrBundle:Places')->findAll(),
             'events' => $em->getRepository('LotrBundle:Events')->findAll(),
+            'races' => $em->getRepository('LotrBundle:Races')->findAll(),
+            'status' => $em->getRepository('LotrBundle:Status')->findAll(),
+            'activePage' => 'dashboard',
         ));
     }
 

@@ -1,0 +1,140 @@
+{% extends "::base-admin.html.twig" %}
+
+{% block title %}LOTR - Back Office{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <section>
+            <div class="col-md-5">
+                {# Liste des personnages #}
+                <h2>Liste des personnages</h2>
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Slug</th>
+                            <th>Name</th>
+                            <th>Race</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for character in characters %}
+                        <tr>
+                            <td>{{ character.id }}</td>
+                            <td>{{ character.slug }}</td>
+                            <td>{{ character.name }}</td>
+                            <td>{{ character.race.slug |capitalize }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                {# Liste des races #}
+                <h2>Liste des races</h2>
+                <div class="pull-left">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for race in races %}
+                            <tr>
+                                <td>{{ race.id }}</td>
+                                <td>{{ race.slug |capitalize }}</td>
+                                <td>{{ race.description }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {# Liste des lieux #}
+                <h2>Liste des lieux</h2>
+                <div class="pull-left">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Coordonnées X</th>
+                            <th>Coordonnées Y</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for place in places %}
+                            <tr>
+                                <td>{{ place.id }}</td>
+                                <td>{{ place.name }}</td>
+                                <td>{{ place.coordx }}</td>
+                                <td>{{ place.coordy }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {# Liste des status #}
+                <h2>Liste des status</h2>
+                <div class="col-md-12">
+                    <div class="pull-left">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Description</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for oneStatus in status %}
+                                <tr>
+                                    <td>{{ oneStatus.id }}</td>
+                                    <td>{{ oneStatus.slug }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-7">
+                {# Liste des événements #}
+                <h2>Liste des événements</h2>
+                <table class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Date début</th>
+                        <th>Date fin</th>
+                        <th>Coordonnées X</th>
+                        <th>Coordonnées Y</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for event in events %}
+                        <tr>
+                            <td>{{ event.id }}</td>
+                            <td>{{ event.name }}</td>
+                            <td>{{ event.date |date('d/m/Y') }}</td>
+                            <td>{{ event.dateend |date('d/m/Y') }}</td>
+                            <td>{{ event.coordx }}</td>
+                            <td>{{ event.coordy }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="http://code.jquery.com/jquery-1.12.0.min.js" type="text/javascript"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+{% endblock %}

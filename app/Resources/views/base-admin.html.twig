@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="page-header">
+                <h1>
+                    LOTR -
+                    <small>
+                        An API to rule them all
+                        <a class="pull-right btn btn-{{ activePage is defined and activePage == 'new-event' ? 'primary' : 'default' }}" href="">New event</a>
+                        <a class="pull-right btn btn-{{ activePage is defined and activePage == 'new-place' ? 'primary' : 'default' }}" style="margin-right: 25px;" href="">New place</a>
+                        <a class="pull-right btn btn-{{ activePage is defined and activePage == 'dashboard' ? 'primary' : 'default' }}" style="margin-right: 25px;" href="">Dashboard</a>
+                    </small>
+                </h1>
+            </div>
+        </div>
+        {% block body %}{% endblock %}
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>
