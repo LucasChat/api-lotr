@@ -4,6 +4,6 @@ parameters:
 #    parameter_name: value
 
 services:
-#    service_name:
-#        class: AppBundle\Directory\ClassName
-#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    event_to_date:
+        class: LotrBundle\Service\eventToDate
+        arguments: ["$unknown", doctrine.orm.entity_manager]

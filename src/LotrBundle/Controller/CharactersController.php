@@ -9,9 +9,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 class CharactersController extends FOSRestController
 {
-    public function getCharactersAction()
+    public function getCharactersAction(Request $request)
     {
-        $request = Request::createFromGlobals();
         $em = $this->getDoctrine()->getManager();
 
         if($request->query->get('who'))
@@ -36,9 +35,8 @@ class CharactersController extends FOSRestController
         return $this->handleView($view);
     }
 
-    public function getCharactersByDateAction($date)
+    public function getCharactersByDateAction($date, Request $request)
     {
-        $request = Request::createFromGlobals();
         $em = $this->getDoctrine()->getManager();
 
         if($request->query->get('who'))
@@ -65,9 +63,8 @@ class CharactersController extends FOSRestController
         return $this->handleView($view);
     }
 
-    public function getCharactersByPeriodAction($date1, $date2)
+    public function getCharactersByPeriodAction($date1, $date2, Request $request)
     {
-        $request = Request::createFromGlobals();
         $em = $this->getDoctrine()->getManager();
 
         if($request->query->get('who'))
@@ -111,6 +108,8 @@ class CharactersController extends FOSRestController
         $em = $this->getDoctrine()->getManager();
         $character = $em->getRepository('LotrBundle:Characters')->findBySlug($slug);
 
+        $date = $this->get('event_to_date')->transform($date, $em);
+
         if(!$character)
         {
             throw new NotFoundHttpException("Character not found");
@@ -153,6 +152,8 @@ class CharactersController extends FOSRestController
         $em = $this->getDoctrine()->getManager();
         $character = $em->getRepository('LotrBundle:Characters')->findBySlug($slug);
 
+        $date = $this->get('event_to_date')->transform($date, $em);
+
         if(!$character)
         {
             throw new NotFoundHttpException("Character not found");
@@ -177,6 +178,9 @@ class CharactersController extends FOSRestController
     {
         $em = $this->getDoctrine()->getManager();
         $character = $em->getRepository('LotrBundle:Characters')->findBySlug($slug);
+
+        $date1 = $this->get('event_to_date')->transform($date1, $em);
+        $date2 = $this->get('event_to_date')->transform($date2, $em);
 
         if(!$character)
         {
