@@ -40,7 +40,7 @@
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>Name</th>
+                        <th>Slug</th>
                         <th>Description</th>
                     </tr>
                     </thead>
@@ -48,7 +48,7 @@
                     {% for race in races %}
                         <tr>
                             <td>{{ race.id }}</td>
-                            <td>{{ race.slug |capitalize }}</td>
+                            <td>{{ race.slug }}</td>
                             <td>{{ race.description }}</td>
                         </tr>
                     {% endfor %}
@@ -111,6 +111,7 @@
                 <thead>
                 <tr>
                     <th>#</th>
+                    <th>Slug</th>
                     <th>Name</th>
                     <th>Start date</th>
                     <th>End date</th>
@@ -122,6 +123,7 @@
                 {% for event in events %}
                     <tr>
                         <td>{{ event.id }}</td>
+                        <td>{{ event.slug }}</td>
                         <td>{{ event.name }}</td>
                         <td>{{ event.date |date('d/m/Y') }}</td>
                         <td>{{ event.dateend |date('d/m/Y') }}</td>
