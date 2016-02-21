@@ -117,17 +117,17 @@ class AdminController extends FOSRestController
             ->add('slug', TextType::class, array(
                 'label' => 'Slug',
                 'attr' => array(
-                    'placeholder' => 'mon-nouveau-lieu',
+                    'placeholder' => 'my-new-places-name',
                 ),
             ))
             ->add('name', TextType::class, array(
-                'label' => 'Nom du lieu',
+                'label' => 'Place\'s name',
                 'attr' => array(
-                    'placeholder' => 'Mon nouveau lieu',
+                    'placeholder' => 'My new place\'s name',
                 ),
             ))
             ->add('coordX', IntegerType::class, array(
-                'label' => 'Coordonnée X',
+                'label' => 'Coord X',
                 'empty_data' => -1,
                 'data' => -1,
                 'attr' => array(
@@ -136,7 +136,7 @@ class AdminController extends FOSRestController
                 ),
             ))
             ->add('coordY', IntegerType::class, array(
-                'label' => 'Coordonnée Y',
+                'label' => 'Coord Y',
                 'empty_data' => -1,
                 'data' => -1,
                 'attr' => array(
@@ -144,7 +144,7 @@ class AdminController extends FOSRestController
                     'max' => 100,
                 ),
             ))
-            ->add('save', SubmitType::class, array('label' => 'Ajouter un lieu'))
+            ->add('save', SubmitType::class, array('label' => 'Create place'))
             ->getForm();
 
         $form->handleRequest($request);
@@ -160,8 +160,8 @@ class AdminController extends FOSRestController
 
         return $this->render('admin/new.html.twig', array(
             'pageActive' => 'new_place',
-            'subtitle' => 'Ajouter un lieu',
-            'h2' => 'Ajouter un lieu',
+            'subtitle' => 'Create place',
+            'h2' => 'Create a new place',
             'form' => $form->createView(),
         ));
     }
