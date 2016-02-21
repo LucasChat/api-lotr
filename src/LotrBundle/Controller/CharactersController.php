@@ -39,6 +39,8 @@ class CharactersController extends FOSRestController
     {
         $em = $this->getDoctrine()->getManager();
 
+        $date = $this->get('event_to_date')->transform($date, $em);
+
         if($request->query->get('who'))
         {
             $whos = explode('-', $request->query->get('who'));
@@ -66,6 +68,9 @@ class CharactersController extends FOSRestController
     public function getCharactersByPeriodAction($date1, $date2, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+
+        $date1 = $this->get('event_to_date')->transform($date1, $em);
+        $date2 = $this->get('event_to_date')->transform($date2, $em);
 
         if($request->query->get('who'))
         {
