@@ -71,6 +71,7 @@ class AdminController extends FOSRestController
                 'data' => -1,
                 'attr' => array(
                     'min' => -1,
+                    'max' => 100,
                 ),
             ))
             ->add('coordY', IntegerType::class, array(
@@ -79,6 +80,7 @@ class AdminController extends FOSRestController
                 'data' => -1,
                 'attr' => array(
                     'min' => -1,
+                    'max' => 100,
                 ),
             ))
             ->add('save', SubmitType::class, array('label' => 'Ajouter un événement'))
@@ -92,7 +94,7 @@ class AdminController extends FOSRestController
             $em->persist($event);
             $em->flush();
 
-            return $this->redirectToRoute('event', array('id' => $event->getSlug()));
+            return $this->redirectToRoute('get_event', array('slug' => $event->getSlug()));
         }
 
         return $this->render('admin/new_event.html.twig', array(
