@@ -2,6 +2,7 @@
 
 namespace LotrBundle\Controller;
 
+use LotrBundle\Entity\Places;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -97,8 +98,70 @@ class AdminController extends FOSRestController
             return $this->redirectToRoute('get_event', array('slug' => $event->getSlug()));
         }
 
-        return $this->render('admin/new_event.html.twig', array(
+        return $this->render('admin/new.html.twig', array(
            'pageActive' => 'new_event',
+            'subtitle' => 'Ajouter un événement',
+            'h2' => 'Ajouter un événement',
+            'form' => $form->createView(),
+        ));
+    }
+
+    /**
+     * @Route("/new/place")
+     */
+    public function newPlaceAction(Request $request)
+    {
+        $place = new Places();
+
+        $form = $this->createFormBuilder($place)
+            ->add('slug', TextType::class, array(
+                'label' => 'Slug',
+                'attr' => array(
+                    'placeholder' => 'mon-nouveau-lieu',
+                ),
+            ))
+            ->add('name', TextType::class, array(
+                'label' => 'Nom du lieu',
+                'attr' => array(
+                    'placeholder' => 'Mon nouveau lieu',
+                ),
+            ))
+            ->add('coordX', IntegerType::class, array(
+                'label' => 'Coordonnée X',
+                'empty_data' => -1,
+                'data' => -1,
+                'attr' => array(
+                    'min' => -1,
+                    'max' => 100,
+                ),
+            ))
+            ->add('coordY', IntegerType::class, array(
+                'label' => 'Coordonnée Y',
+                'empty_data' => -1,
+                'data' => -1,
+                'attr' => array(
+                    'min' => -1,
+                    'max' => 100,
+                ),
+            ))
+            ->add('save', SubmitType::class, array('label' => 'Ajouter un lieu'))
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+
+            $em->persist($place);
+            $em->flush();
+
+            return $this->redirectToRoute('get_place', array('slug' => $place->getSlug()));
+        }
+
+        return $this->render('admin/new.html.twig', array(
+            'pageActive' => 'new_place',
+            'subtitle' => 'Ajouter un lieu',
+            'h2' => 'Ajouter un lieu',
             'form' => $form->createView(),
         ));
     }
