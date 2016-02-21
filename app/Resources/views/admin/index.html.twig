@@ -12,7 +12,7 @@
         <hr />
         <div class="col-md-5">
             {# Liste des personnages #}
-            <h2>Liste des personnages</h2>
+            <h2>Characters' list</h2>
             <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
@@ -34,13 +34,13 @@
                 </tbody>
             </table>
             {# Liste des races #}
-            <h2>Liste des races</h2>
+            <h2>Races' list</h2>
             <div class="pull-left">
                 <table class="table table-bordered table-striped">
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>Name</th>
+                        <th>Slug</th>
                         <th>Description</th>
                     </tr>
                     </thead>
@@ -48,7 +48,7 @@
                     {% for race in races %}
                         <tr>
                             <td>{{ race.id }}</td>
-                            <td>{{ race.slug |capitalize }}</td>
+                            <td>{{ race.slug }}</td>
                             <td>{{ race.description }}</td>
                         </tr>
                     {% endfor %}
@@ -56,21 +56,23 @@
                 </table>
             </div>
             {# Liste des lieux #}
-            <h2>Liste des lieux</h2>
+            <h2>Places' list</h2>
             <div class="pull-left">
                 <table class="table table-bordered table-striped">
                     <thead>
                     <tr>
                         <th>#</th>
+                        <th>Slug</th>
                         <th>Name</th>
-                        <th>Coordonnées X</th>
-                        <th>Coordonnées Y</th>
+                        <th>Coord X</th>
+                        <th>Coord Y</th>
                     </tr>
                     </thead>
                     <tbody>
                     {% for place in places %}
                         <tr>
                             <td>{{ place.id }}</td>
+                            <td>{{ place.slug }}</td>
                             <td>{{ place.name }}</td>
                             <td>{{ place.coordx }}</td>
                             <td>{{ place.coordy }}</td>
@@ -80,7 +82,7 @@
                 </table>
             </div>
             {# Liste des status #}
-            <h2>Liste des status</h2>
+            <h2>Status' list</h2>
             <div class="col-md-12">
                 <div class="pull-left">
                     <table class="table table-bordered table-striped">
@@ -104,22 +106,24 @@
         </div>
         <div class="col-md-7">
             {# Liste des événements #}
-            <h2>Liste des événements</h2>
+            <h2>Events' list</h2>
             <table class="table table-bordered table-striped">
                 <thead>
                 <tr>
                     <th>#</th>
+                    <th>Slug</th>
                     <th>Name</th>
-                    <th>Date début</th>
-                    <th>Date fin</th>
-                    <th>Coordonnées X</th>
-                    <th>Coordonnées Y</th>
+                    <th>Start date</th>
+                    <th>End date</th>
+                    <th>Coord X</th>
+                    <th>Coord Y</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for event in events %}
                     <tr>
                         <td>{{ event.id }}</td>
+                        <td>{{ event.slug }}</td>
                         <td>{{ event.name }}</td>
                         <td>{{ event.date |date('d/m/Y') }}</td>
                         <td>{{ event.dateend |date('d/m/Y') }}</td>
