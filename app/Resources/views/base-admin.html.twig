@@ -16,20 +16,20 @@
                         {% if pageActive is defined %}
                             {% if pageActive == 'dashboard' %}
                                 <a class="pull-right btn btn-default" href="{{ path('lotr_admin_newevent') }}">New event</a>
-                                <a class="pull-right btn btn-default" style="margin-right: 25px;" href="{{ path('lotr_admin_showall') }}">New place</a>
+                                <a class="pull-right btn btn-default" style="margin-right: 25px;" href="{{ path('lotr_admin_newplace') }}">New place</a>
                                 <a class="pull-right btn btn-primary" style="margin-right: 25px;" href="{{ path('lotr_admin_showall') }}">Dashboard</a>
                             {% elseif pageActive == 'new_place' %}
                                 <a class="pull-right btn btn-default" href="{{ path('lotr_admin_newevent') }}">New event</a>
-                                <a class="pull-right btn btn-primary" style="margin-right: 25px;" href="{{ path('lotr_admin_showall') }}">New place</a>
+                                <a class="pull-right btn btn-primary" style="margin-right: 25px;" href="{{ path('lotr_admin_newplace') }}">New place</a>
                                 <a class="pull-right btn btn-default" style="margin-right: 25px;" href="{{ path('lotr_admin_showall') }}">Dashboard</a>
                             {% elseif pageActive == 'new_event' %}
                                 <a class="pull-right btn btn-primary" href="{{ path('lotr_admin_newevent') }}">New event</a>
-                                <a class="pull-right btn btn-default" style="margin-right: 25px;" href="{{ path('lotr_admin_showall') }}">New place</a>
+                                <a class="pull-right btn btn-default" style="margin-right: 25px;" href="{{ path('lotr_admin_newplace') }}">New place</a>
                                 <a class="pull-right btn btn-default" style="margin-right: 25px;" href="{{ path('lotr_admin_showall') }}">Dashboard</a>
                             {% endif %}
                         {% else %}
                             <a class="pull-right btn btn-default" href="{{ path('lotr_admin_newevent') }}">New event</a>
-                            <a class="pull-right btn btn-default" style="margin-right: 25px;" href="{{ path('lotr_admin_showall') }}">New place</a>
+                            <a class="pull-right btn btn-default" style="margin-right: 25px;" href="{{ path('lotr_admin_newplace') }}">New place</a>
                             <a class="pull-right btn btn-default" style="margin-right: 25px;" href="{{ path('lotr_admin_showall') }}">Dashboard</a>
                         {% endif %}
                     </small>

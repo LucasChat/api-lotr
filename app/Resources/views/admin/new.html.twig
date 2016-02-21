@@ -1,0 +1,29 @@
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+{% extends "::base-admin.html.twig" %}
+
+{% block title %}
+    LOTR - Back Office
+    {% if subtitle is defined %}
+        - {{ subtitle }}
+    {% endif %}
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2>
+            {% if h2 is defined %}
+                {{ h2 }}
+            {% else %}
+                h2 variable is not defined
+            {% endif %}
+        </h2>
+        <hr />
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
