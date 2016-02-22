@@ -5,13 +5,10 @@
 * Magali Rivière
 * Alexis Subias
 * Louis Piechowiak
-
 ## Context
 Some text
-
 ## Installation
 Some text
-
 ## Use the API - Routing
 ### Characters
 ***
@@ -258,7 +255,7 @@ If Frodon wasn't here at this date, the API will return something like that:
 
 The result will be as the same as seen previously, even with the error message if no result matches.
 #### Get a character's position(s) during an event
-```javascript
+```
 > 127.0.0.1:8000/character/{slug}/event/{event}/position
 ```
 > 127.0.0.1:8000/character/frodon/event/bataille-gouffre-helm/position
@@ -455,6 +452,144 @@ The result will take the same form as previously.
 ```
 > 127.0.0.1:8000/events
 ```
+```javascript
+[
+  {
+    "id": 1,
+    "slug": "frodon-quitte-hobbitebourg",
+    "name": "Frodon quitte Hobbitebourg",
+    "date": "3018-09-23T00:00:00+0100",
+    "date_end": "3018-09-23T00:00:00+0100",
+    "coordx": 13,
+    "coordy": 24
+  },
+  {
+    "id": 2,
+    "slug": "nazgul-atteint-hobbitebourg",
+    "name": "Un Nazgûl atteint Hobbitebourg à la nuit tombée",
+    "date": "3018-09-23T00:00:00+0100",
+    "date_end": "3018-09-23T00:00:00+0100",
+    "coordx": 13,
+    "coordy": 24
+  },
+  {
+    "id": 3,
+    "slug": "attaque-nazgul-poney-fringant",
+    "name": "À l'aube, attaque des Nazgûl sur le Creux-de-Crique et l'Auberge du Poney Fringant",
+    "date": "3018-09-30T00:00:00+0100",
+    "date_end": "3018-09-30T00:00:00+0100",
+    "coordx": 26,
+    "coordy": 26
+  },
+  ...
+]
+```
+#### Get one event
+```
+> 127.0.0.1:8000/event/{slug}
+```
+> 127.0.0.1:8000/event/mort-de-boromir
+
+```javascript
+[
+  {
+    "id": 14,
+    "slug": "mort-de-boromir",
+    "name": "Mort de Boromir",
+    "date": "3019-02-26T00:00:00+0100",
+    "date_end": "3019-02-26T00:00:00+0100",
+    "coordx": 54,
+    "coordy": 49
+  }
+]
+```
+#### Get the characters' positions during an event
+```
+> 127.0.0.1:8000/event/{slug}/position/characters
+```
+> 127.0.0.1:8000/event/mort-de-boromir/position/characters
+
+```javascript
+[
+  [
+    {
+      "id": 14,
+      "slug": "mort-de-boromir",
+      "name": "Mort de Boromir",
+      "date": "3019-02-26T00:00:00+0100",
+      "date_end": "3019-02-26T00:00:00+0100",
+      "coordx": 54,
+      "coordy": 49
+    }
+  ],
+  [
+    {
+      "id": 157,
+      "character": {
+        "id": 1,
+        "slug": "aragorn",
+        "name": "Aragorn, dit Grands-Pas",
+        "race": {
+          "id": 1,
+          "slug": "homme",
+          "description": "L'humanité, race jeune en opposition aux autres races humanoïdes telles les Elfes, les Nains ou les Orques."
+        }
+      },
+      "date": "3019-02-26T00:00:00+0100",
+      "coordx": 54,
+      "coordy": 49,
+      "status": {
+        "id": 1,
+        "slug": "Bonne santé"
+      }
+    },
+    ...
+  ]
+]
+```
+#### Returns the character that were present during an event
+```
+> 127.0.0.1:8000/event/{slug}/present/characters
+```
+> 127.0.0.1:8000/event/attaque-nazgul-poney-fringant/present/characters
+
+```javascript
+[
+  [
+    {
+      "id": 3,
+      "slug": "attaque-nazgul-poney-fringant",
+      "name": "À l'aube, attaque des Nazgûl sur le Creux-de-Crique et l'Auberge du Poney Fringant",
+      "date": "3018-09-30T00:00:00+0100",
+      "date_end": "3018-09-30T00:00:00+0100",
+      "coordx": 26,
+      "coordy": 26
+    }
+  ],
+  [
+    {
+      "id": 560,
+      "character": {
+        "id": 4,
+        "slug": "gandalf",
+        "name": "Gandalf le gris, puis Gandalf le blanc",
+        "race": {
+          "id": 4,
+          "slug": "maia",
+          "description": "Ils font partie des Ainur, les divinités issues de l'esprit d'Ilúvatar, le dieu créateur."
+        }
+      },
+      "date": "3018-09-30T00:00:00+0100",
+      "coordx": 26,
+      "coordy": 26,
+      "status": {
+        "id": 1,
+        "slug": "Bonne santé"
+      }
+    }
+  ]
+]
+```
 ***
 ### Places
 ***
@@ -505,7 +640,7 @@ The result will take the same form as previously.
   }
 ]
 ```
-#### Return all characters that went to a place
+#### Returns all characters that went to a place
 ```
 > 127.0.0.1:8000/place/{slug}/characters
 ```
@@ -547,7 +682,7 @@ The result will take the same form as previously.
   ]
 ]
 ```
-#### Return all characters that to went to a place for a given date
+#### Returns all characters that to went to a place for a given date
 ```
 > 127.0.0.1:8000/place/{slug}/characters/date/{date}
 ```
@@ -567,7 +702,7 @@ The result will take the same form as previously.
   "error : nobody here at this date"
 ]
 ```
-#### Return all characters that went to a place during a period
+#### Returns all characters that went to a place during a period
 ```
 > 127.0.0.1:8000/place/{slug}/characters/period/{date}/{event}
 ```
