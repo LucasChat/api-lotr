@@ -7,21 +7,27 @@ use LotrBundle\LotrBundle;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpFoundation\Request;
 
 class PlacesController extends FOSRestController
 {
-    public function getPlacesAction()
+    public function getPlacesAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
         $places = $em->getRepository('LotrBundle:Places')->findAll();
+
+        if($request->query->get('format') == 'png' && gettype($places) == 'array')
+        {
+            $this->get('map_generator')->generate($request->query->get('type'), null, $places);
+        }
 
         $view = $this->view($places);
         return $this->handleView($view);
     }
 
 
-    public function getPlaceAction($slug)
+    public function getPlaceAction($slug, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -29,6 +35,11 @@ class PlacesController extends FOSRestController
         if(!$place)
         {
             throw new NotFoundHttpException("Place not found");
+        }
+
+        if($request->query->get('format') == 'png' && gettype($place) == 'array')
+        {
+            $this->get('map_generator')->generate($request->query->get('type'), null, $place);
         }
 
         $view = $this->view($place);
