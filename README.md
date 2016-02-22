@@ -13,7 +13,7 @@ Some text
 ### Characters
 ***
 #### Get all characters
-```javascript
+```
 > 127.0.0.1:8000/characters
 ```
 This route will return something like that:
@@ -43,7 +43,7 @@ This route will return something like that:
  ]
 ```
 #### Get one character
-```javascript
+```
 > 127.0.0.1:8000/character/{slug}
 ```
 > 127.0.0.1:8000/character/frodon
@@ -64,7 +64,7 @@ Taking the example of Frodon, it'll return:
 ]
 ```
 #### Looking about what did a character at a particular date
-```javascript
+```
 > 127.0.0.1:8000/character/{slug}/date/{date}
 ```
 Assuming we want informations of what did Gandalf on 3018, 09. 28, we'll access to:
@@ -96,7 +96,7 @@ It will return:
 ]
 ```
 #### Get character's informations during a period
-```javascript
+```
 > 127.0.0.1:8000/character/{slug}/period/{event}/{date}
 ```
 > 127.0.0.1:8000/character/frodon/period/conseil-elrond/3019-09-28
@@ -148,7 +148,7 @@ It will return:
 ]
 ```
 #### Check if a character is moved to a place
-```javascript
+```
 > 127.0.0.1:8000/character/{slug}/place/{slug}
 ```
 Assuming we want to check if Frodon went to Moria and get the dates he went to:
@@ -191,7 +191,7 @@ Assuming we want to check if Frodon went to Moria and get the dates he went to:
 ]
 ```
 #### Checking if a character was in a place at a specific date
-```javascript
+```
 > 127.0.0.1:8000/character/{slug}/place/{slug}/date/{date}
 ```
 > 127.0.0.1:8000/character/frodon/place/moria/date/3019-01-15
@@ -248,7 +248,7 @@ If Frodon wasn't here at this date, the API will return something like that:
 ]
 ```
 #### Checking if a character was in a place during a period
-```javascript
+```
 > 127.0.0.1:8000/character/{slug}/place/{slug}/period/{date}/{event}
 ```
 > 127.0.0.1:8000/character/frodon/place/moria/period/3019-01-12/bataille-gouffre-helm
@@ -319,7 +319,7 @@ This example returns all the positions of Frodon during the Battle of Helm's Dee
 ]
 ```
 #### Check if a character was present during an event
-```javascript
+```
 > 127.0.0.1:8000/character/{slug}/event/{event}/present
 ```
 > 127.0.0.1:8000/character/frodon/event/bataille-gouffre-helm/present
@@ -341,9 +341,9 @@ This example returns all the positions of Frodon during the Battle of Helm's Dee
 ]
 ```
 #### Get informations about some characters
-```javascript
+```
 > 127.0.0.1:8000/characters/?who={slug}
-> 127.0.0.1:8000/characters/?who={slug}-{slug} // up to 9 slugs
+> 127.0.0.1:8000/characters/?who={slug}-{slug}
 ```
 > 127.0.0.1:8000/characters?who=frodon-legolas-sam
 
@@ -388,7 +388,7 @@ This example returns all the positions of Frodon during the Battle of Helm's Dee
 ]
 ```
 #### Get informations about all characters for a date
-```javascript
+```
 > 127.0.0.1:8000/characters/date/{date}
 ```
 > 127.0.0.1:8000/characters/date/3019-01-09
@@ -439,7 +439,7 @@ This example returns all the positions of Frodon during the Battle of Helm's Dee
 ]
 ```
 #### Get informations about all characters during a period
-```javascript
+```
 > 127.0.0.1:8000/characters/period/{event}/{date}
 ```
 > 127.0.0.1:8000/characters/period/conseil-elrond/3018-10-30
@@ -449,21 +449,206 @@ The result will take the same form as previously.
 ### Events
 ***
 #### Get all events
-```javascript
+```
 > 127.0.0.1:8000/events
 ```
 ***
 ### Places
 ***
 #### Get all places
+```
+> 127.0.0.1:8000/places
+```
+```javascript
+[
+  {
+    "id": 1,
+    "slug": "hobbitbourg",
+    "name": "Hobbitbourg",
+    "coordx": 13,
+    "coordy": 24
+  },
+  {
+    "id": 2,
+    "slug": "bree",
+    "name": "Bree",
+    "coordx": 26,
+    "coordy": 26
+  },
+  {
+    "id": 3,
+    "slug": "mont-venteux",
+    "name": "Mont Venteux",
+    "coordx": 32,
+    "coordy": 26
+  },
+  ...
+]
+```
+#### Get one place
+```
+> 127.0.0.1:8000/place/{slug}
+```
+> 127.0.0.1:8000/place/montagne-du-destin
 
 ```javascript
-> 127.0.0.1:8000/places
+[
+  {
+    "id": 16,
+    "slug": "montagne-du-destin",
+    "name": "Montagne du Destin",
+    "coordx": 75,
+    "coordy": 58
+  }
+]
+```
+#### Return all characters that went to a place
+```
+> 127.0.0.1:8000/place/{slug}/characters
+```
+> 127.0.0.1:8000/place/montagne-du-destin/characters
+
+```javascript
+[
+  [
+    {
+      "id": 16,
+      "slug": "montagne-du-destin",
+      "name": "Montagne du Destin",
+      "coordx": 75,
+      "coordy": 58
+    }
+  ],
+  [
+    {
+      "id": 552,
+      "character": {
+        "id": 3,
+        "slug": "frodon",
+        "name": "Frodon Sacquet",
+        "race": {
+          "id": 3,
+          "slug": "hobbit",
+          "description": "Egalement appelés Semi-hommes ou Periannath."
+        }
+      },
+      "date": "3019-03-25T00:00:00+0100",
+      "coordx": 75,
+      "coordy": 58,
+      "status": {
+        "id": 5,
+        "slug": "Croqué le doigt !"
+      }
+    },
+    ...
+  ]
+]
+```
+#### Return all characters that to went to a place for a given date
+```
+> 127.0.0.1:8000/place/{slug}/characters/date/{date}
+```
+> 127.0.0.1:8000/place/amon-hen/characters/date/3019-01-09
+
+```javascript
+[
+  [
+    {
+      "id": 23,
+      "slug": "amon-hen",
+      "name": "Amon Hen",
+      "coordx": 54,
+      "coordy": 49
+    }
+  ],
+  "error : nobody here at this date"
+]
+```
+#### Return all characters that went to a place during a period
+```
+> 127.0.0.1:8000/place/{slug}/characters/period/{date}/{event}
+```
+> 127.0.0.1:8000/place/hobbitbourg/characters/period/3018-09-23/bataille-gouffre-helm
+
+```javascript
+[
+  [
+    {
+      "id": 1,
+      "slug": "hobbitbourg",
+      "name": "Hobbitbourg",
+      "coordx": 13,
+      "coordy": 24
+    }
+  ],
+  [
+    {
+      "id": 369,
+      "character": {
+        "id": 3,
+        "slug": "frodon",
+        "name": "Frodon Sacquet",
+        "race": {
+          "id": 3,
+          "slug": "hobbit",
+          "description": "Egalement appelés Semi-hommes ou Periannath."
+        }
+      },
+      "date": "3018-09-23T00:00:00+0100",
+      "coordx": 13,
+      "coordy": 24,
+      "status": {
+        "id": 1,
+        "slug": "Bonne santé"
+      }
+    },
+    {
+      "id": 559,
+      "character": {
+        "id": 4,
+        "slug": "gandalf",
+        "name": "Gandalf le gris, puis Gandalf le blanc",
+        "race": {
+          "id": 4,
+          "slug": "maia",
+          "description": "Ils font partie des Ainur, les divinités issues de l'esprit d'Ilúvatar, le dieu créateur."
+        }
+      },
+      "date": "3018-09-29T00:00:00+0100",
+      "coordx": 13,
+      "coordy": 24,
+      "status": {
+        "id": 1,
+        "slug": "Bonne santé"
+      }
+    },
+    {
+      "id": 1473,
+      "character": {
+        "id": 9,
+        "slug": "sam",
+        "name": "Samsagace Gamegie, dit Sam",
+        "race": {
+          "id": 3,
+          "slug": "hobbit",
+          "description": "Egalement appelés Semi-hommes ou Periannath."
+        }
+      },
+      "date": "3018-09-23T00:00:00+0100",
+      "coordx": 13,
+      "coordy": 24,
+      "status": {
+        "id": 1,
+        "slug": "Bonne santé"
+      }
+    }
+  ]
+]
 ```
 ***
 ### Map
 ***
 #### Get the map
-```javascript
+```
 > 127.0.0.1:8000/map
 ```
