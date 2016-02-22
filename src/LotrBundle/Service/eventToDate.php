@@ -9,10 +9,20 @@
 namespace LotrBundle\Service;
 
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+/**
+ * Accept a date or an event and return a correct date for search in database
+ *
+ * Class EventToDate
+ * @package LotrBundle\Service
+ */
 class EventToDate
 {
+    /**
+     * @param $unknown
+     * @param $em
+     * @return mixed
+     */
     public function transform($unknown, $em)
     {
         $format = 'Y-m-d';
