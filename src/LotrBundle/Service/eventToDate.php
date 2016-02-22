@@ -11,7 +11,7 @@ namespace LotrBundle\Service;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class eventToDate
+class EventToDate
 {
     public function transform($unknown, $em)
     {

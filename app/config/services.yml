@@ -5,7 +5,7 @@ parameters:
 
 services:
     event_to_date:
-        class: LotrBundle\Service\eventToDate
+        class: LotrBundle\Service\EventToDate
         arguments: ["$unknown", doctrine.orm.entity_manager]
     map_generator:
         class: LotrBundle\Service\MapGenerator
