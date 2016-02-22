@@ -3,13 +3,22 @@
 namespace LotrBundle\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
+use FOS\RestBundle\Controller\Annotations\Get;
+use Symfony\Component\Validator\Constraints\Image;
 
 class EventsController extends FOSRestController
 {
+	/**
+	 *
+	 * GET Route annotation.
+	 * @Get("/events.{_format}")
+	 * @param Request $request
+	 * @return JsonResponse|Image
+	 *
+	 */
 	public function getEventsAction(Request $request)
 	{
 		$em = $this->getDoctrine()->getManager();
@@ -25,6 +34,15 @@ class EventsController extends FOSRestController
 		return $this->handleView($view);
 	}
 
+	/**
+	 *
+	 * GET Route annotation.
+	 * @Get("/event/{slug}.{_format}")
+	 * @param Request $request
+	 * @param String $slug
+	 * @return JsonResponse|Image
+	 *
+	 */
 	public function getEventAction($slug, Request $request)
 	{
 		$em = $this->getDoctrine()->getManager();
@@ -45,6 +63,14 @@ class EventsController extends FOSRestController
 		return $this->handleView($view);
 	}
 
+	/**
+	 *
+	 * GET Route annotation.
+	 * @Get("/event/{slug}/position/characters.{_format}")
+	 * @param String $slug
+	 * @return JsonResponse
+	 *
+	 */
 	public function getEventPositionCharactersAction($slug)
 	{
 		$em = $this->getDoctrine()->getManager();
@@ -63,6 +89,14 @@ class EventsController extends FOSRestController
 		return $this->handleView($view);
 	}
 
+	/**
+	 *
+	 * GET Route annotation.
+	 * @Get("/event/{slug}/present/characters.{_format}")
+	 * @param String $slug
+	 * @return JsonResponse
+	 *
+	 */
 	public function getEventPresentCharactersAction($slug)
 	{
 		$em = $this->getDoctrine()->getManager();
