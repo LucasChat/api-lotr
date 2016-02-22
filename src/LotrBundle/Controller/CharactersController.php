@@ -2,13 +2,22 @@
 namespace LotrBundle\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
+use FOS\RestBundle\Controller\Annotations\Get;
+use Symfony\Component\Validator\Constraints\Image;
 
 class CharactersController extends FOSRestController
 {
+    /**
+     *
+     * GET Route annotation.
+     * @Get("/characters.{_format}")
+     * @param Request $request
+     * @return JsonResponse
+     *
+     */
     public function getCharactersAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
@@ -35,6 +44,15 @@ class CharactersController extends FOSRestController
         return $this->handleView($view);
     }
 
+    /**
+     *
+     * GET Route annotation.
+     * @Get("/characters/date/{date}.{_format}")
+     * @param Request $request
+     * @param \Datetime|string $date
+     * @return JsonResponse
+     *
+     */
     public function getCharactersByDateAction($date, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
@@ -65,6 +83,16 @@ class CharactersController extends FOSRestController
         return $this->handleView($view);
     }
 
+    /**
+     *
+     * GET Route annotation.
+     * @Get("/characters/period/{date1}/{date2}.{_format}")
+     * @param Request $request
+     * @param \Datetime|string $date1
+     * @param \Datetime|string $date2
+     * @return JsonResponse
+     *
+     */
     public function getCharactersByPeriodAction($date1, $date2, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
@@ -101,7 +129,14 @@ class CharactersController extends FOSRestController
 
 
 
-
+    /**
+     *
+     * GET Route annotation.
+     * @Get("/character/{slug}.{_format}")
+     * @param String $slug
+     * @return JsonResponse
+     *
+     */
     public function getCharacterAction($slug)
     {
         $em = $this->getDoctrine()->getManager();
@@ -111,6 +146,16 @@ class CharactersController extends FOSRestController
         return $this->handleView($view);
     }
 
+    /**
+     *
+     * GET Route annotation.
+     * @Get("/character/{slug}/date/{date}.{_format}")
+     * @param String $slug
+     * @param \Datetime|String $date
+     * @param Request $request
+     * @return JsonResponse|Image
+     *
+     */
     public function getCharacterTripByDateAction($slug, $date, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
@@ -135,6 +180,16 @@ class CharactersController extends FOSRestController
         return $this->handleView($view);
     }
 
+    /**
+     *
+     * GET Route annotation.
+     * @Get("/character/{slug}/place/{place}.{_format}")
+     * @param String $slug
+     * @param String $place
+     * @param Request $request
+     * @return JsonResponse|Image
+     *
+     */
     public function getCharacterTripByPlaceAction($slug, $place, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
@@ -165,6 +220,17 @@ class CharactersController extends FOSRestController
         return $this->handleView($view);
     }
 
+    /**
+     *
+     * GET Route annotation.
+     * @Get("/character/{slug}/place/{place}/date/{date}.{_format}")
+     * @param String $slug
+     * @param String $place
+     * @param \Datetime|String $date
+     * @param Request $request
+     * @return JsonResponse|Image
+     *
+     */
     public function getCharacterTripByPlaceAndDateAction($slug, $place, $date, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
@@ -197,6 +263,17 @@ class CharactersController extends FOSRestController
         return $this->handleView($view);
     }
 
+    /**
+     *
+     * GET Route annotation.
+     * @Get("/character/{slug}/period/{date1}/{date2}.{_format}")
+     * @param String $slug
+     * @param \Datetime|String $date1
+     * @param \Datetime|String $date2
+     * @param Request $request
+     * @return JsonResponse|Image
+     *
+     */
     public function getCharacterTripByPeriodAction($slug, $date1, $date2, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
@@ -222,6 +299,18 @@ class CharactersController extends FOSRestController
         return $this->handleView($view);
     }
 
+    /**
+     *
+     * GET Route annotation.
+     * @Get("/character/{slug}/place/{place}/period/{date1}/{date2}.{_format}")
+     * @param String $slug
+     * @param String $place
+     * @param \Datetime|String $date1
+     * @param \Datetime|String $date2
+     * @param Request $request
+     * @return JsonResponse|Image
+     *
+     */
     public function getCharacterTripByPlaceAndPeriodAction($slug, $place, $date1, $date2, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
@@ -252,6 +341,16 @@ class CharactersController extends FOSRestController
         return $this->handleView($view);
     }
 
+    /**
+     *
+     * GET Route annotation.
+     * @Get("/character/{slug}/event/{event}/position.{_format}")
+     * @param String $slug
+     * @param String $event
+     * @param Request $request
+     * @return JsonResponse|Image
+     *
+     */
     public function getCharacterTripPositionByEventAction($slug, $event, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
@@ -281,6 +380,16 @@ class CharactersController extends FOSRestController
         return $this->handleView($view);
     }
 
+    /**
+     *
+     * GET Route annotation.
+     * @Get("/character/{slug}/event/{event}/present.{_format}")
+     * @param String $slug
+     * @param String $event
+     * @param Request $request
+     * @return JsonResponse|Image
+     *
+     */
     public function getCharacterTripPresentByEventAction($slug, $event, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
