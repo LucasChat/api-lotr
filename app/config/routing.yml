@@ -3,10 +3,6 @@ lotr:
     type:     annotation
     prefix:   /
 
-app:
-    resource: "@AppBundle/Controller/"
-    type:     annotation
-
 # Character Alone
 get_character:
     pattern:  /character/{slug}.{_format}
