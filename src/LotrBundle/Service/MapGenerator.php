@@ -16,7 +16,7 @@ use Symfony\Component\Intl\ResourceBundle\ResourceBundleInterface;
 /**
  * Class MapGenerator
  *
- * Service permettant de générer dynamiquement un parcours sur un png à partir de collections
+ * Service to dynamically generate a route on a png, from send collections
  *
  * @package LotrBundle\Service
  */
@@ -151,7 +151,7 @@ class MapGenerator
     }
 
     /**
-     * Print the places on png
+     * Print the place(s) on png
      *
      * @param ResourceBundleInterface $image
      * @param Collection $place

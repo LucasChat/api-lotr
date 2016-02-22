@@ -9,15 +9,19 @@ use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\Annotations\Get;
 use Symfony\Component\Validator\Constraints\Image;
 
+/**
+ * Class PlacesController
+ * Controller for all Places routes
+ * @package LotrBundle\Controller
+ */
 class PlacesController extends FOSRestController
 {
     /**
+     * GET all the places (id, slug, name, coordX and coordY).
      *
-     * GET Route annotation.
      * @Get("/places.{_format}")
      * @param Request $request
      * @return JsonResponse|Image
-     *
      */
     public function getPlacesAction(Request $request)
     {
@@ -35,13 +39,12 @@ class PlacesController extends FOSRestController
     }
 
     /**
+     * GET a single place (id, slug, name, coordX and coordY).
      *
-     * GET Route annotation.
      * @Get("/place/{slug}.{_format}")
      * @param Request $request
      * @param String $slug
      * @return JsonResponse|Image
-     *
      */
     public function getPlaceAction($slug, Request $request)
     {
@@ -63,12 +66,11 @@ class PlacesController extends FOSRestController
     }
 
     /**
+     * GET date of passage of all characters in a specific place.
      *
-     * GET Route annotation.
      * @Get("/place/{slug}/characters.{_format}")
      * @param String $slug
      * @return JsonResponse
-     *
      */
     public function getPlaceAllCharactersAction($slug)
     {
@@ -93,13 +95,12 @@ class PlacesController extends FOSRestController
     }
 
     /**
+     * GET who was in a specific place at a specific date, in all characters.
      *
-     * GET Route annotation.
      * @Get("/place/{slug}/characters/date/{date}.{_format}")
      * @param String $slug
      * @param \Datetime|String $date
      * @return JsonResponse
-     *
      */
     public function getPlaceAllCharactersByDateAction($slug, $date)
     {
@@ -125,14 +126,13 @@ class PlacesController extends FOSRestController
     }
 
     /**
+     * GET who was in a specific place during a specific period, in all characters.
      *
-     * GET Route annotation.
      * @Get("/place/{slug}/characters/period/{date1}/{date2}.{_format}")
      * @param String $slug
      * @param \Datetime|String $date1
      * @param \Datetime|String $date2
      * @return JsonResponse
-     *
      */
     public function getPlaceAllCharactersByPeriodAction($slug, $date1, $date2)
     {

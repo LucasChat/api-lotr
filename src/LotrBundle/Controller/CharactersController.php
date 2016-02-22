@@ -8,15 +8,19 @@ use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\Annotations\Get;
 use Symfony\Component\Validator\Constraints\Image;
 
+/**
+ * Class CharactersController
+ * Controller for all Character or Characters routes
+ * @package LotrBundle\Controller
+ */
 class CharactersController extends FOSRestController
 {
     /**
+     * GET all the characters definition (id, slug, name, race).
      *
-     * GET Route annotation.
      * @Get("/characters.{_format}")
      * @param Request $request
      * @return JsonResponse
-     *
      */
     public function getCharactersAction(Request $request)
     {
@@ -45,13 +49,12 @@ class CharactersController extends FOSRestController
     }
 
     /**
+     * GET all characters (or a selection of them) position for a date (real date or event accepted).
      *
-     * GET Route annotation.
      * @Get("/characters/date/{date}.{_format}")
      * @param Request $request
      * @param \Datetime|String $date
      * @return JsonResponse
-     *
      */
     public function getCharactersByDateAction($date, Request $request)
     {
@@ -84,14 +87,13 @@ class CharactersController extends FOSRestController
     }
 
     /**
+     * GET all characters position (or a selection of them) during a period (real date or event accepted).
      *
-     * GET Route annotation.
      * @Get("/characters/period/{date1}/{date2}.{_format}")
      * @param Request $request
      * @param \Datetime|string $date1
      * @param \Datetime|string $date2
      * @return JsonResponse
-     *
      */
     public function getCharactersByPeriodAction($date1, $date2, Request $request)
     {
@@ -130,12 +132,11 @@ class CharactersController extends FOSRestController
 
 
     /**
+     * GET a single character definition (id, slug, name, race).
      *
-     * GET Route annotation.
      * @Get("/character/{slug}.{_format}")
      * @param String $slug
      * @return JsonResponse
-     *
      */
     public function getCharacterAction($slug)
     {
@@ -147,14 +148,13 @@ class CharactersController extends FOSRestController
     }
 
     /**
+     * GET a single character position for a date (real date or event accepted).
      *
-     * GET Route annotation.
      * @Get("/character/{slug}/date/{date}.{_format}")
      * @param String $slug
      * @param \Datetime|String $date
      * @param Request $request
      * @return JsonResponse|Image
-     *
      */
     public function getCharacterTripByDateAction($slug, $date, Request $request)
     {
@@ -181,14 +181,13 @@ class CharactersController extends FOSRestController
     }
 
     /**
+     * GET for a single character all days passed in a specific place.
      *
-     * GET Route annotation.
      * @Get("/character/{slug}/place/{place}.{_format}")
      * @param String $slug
      * @param String $place
      * @param Request $request
      * @return JsonResponse|Image
-     *
      */
     public function getCharacterTripByPlaceAction($slug, $place, Request $request)
     {
@@ -221,15 +220,14 @@ class CharactersController extends FOSRestController
     }
 
     /**
+     * GET if a single character was in a specific place at a specific date (real date or event accepted).
      *
-     * GET Route annotation.
      * @Get("/character/{slug}/place/{place}/date/{date}.{_format}")
      * @param String $slug
      * @param String $place
      * @param \Datetime|String $date
      * @param Request $request
      * @return JsonResponse|Image
-     *
      */
     public function getCharacterTripByPlaceAndDateAction($slug, $place, $date, Request $request)
     {
@@ -264,15 +262,14 @@ class CharactersController extends FOSRestController
     }
 
     /**
+     * GET a single character position during a period (real date or event accepted).
      *
-     * GET Route annotation.
      * @Get("/character/{slug}/period/{date1}/{date2}.{_format}")
      * @param String $slug
      * @param \Datetime|String $date1
      * @param \Datetime|String $date2
      * @param Request $request
      * @return JsonResponse|Image
-     *
      */
     public function getCharacterTripByPeriodAction($slug, $date1, $date2, Request $request)
     {
@@ -300,8 +297,8 @@ class CharactersController extends FOSRestController
     }
 
     /**
+     * GET if a single character was in a specific place during a specific period (real date or event accepted).
      *
-     * GET Route annotation.
      * @Get("/character/{slug}/place/{place}/period/{date1}/{date2}.{_format}")
      * @param String $slug
      * @param String $place
@@ -309,7 +306,6 @@ class CharactersController extends FOSRestController
      * @param \Datetime|String $date2
      * @param Request $request
      * @return JsonResponse|Image
-     *
      */
     public function getCharacterTripByPlaceAndPeriodAction($slug, $place, $date1, $date2, Request $request)
     {
@@ -342,14 +338,13 @@ class CharactersController extends FOSRestController
     }
 
     /**
+     * GET for a single character his position(s) during an event.
      *
-     * GET Route annotation.
      * @Get("/character/{slug}/event/{event}/position.{_format}")
      * @param String $slug
      * @param String $event
      * @param Request $request
      * @return JsonResponse|Image
-     *
      */
     public function getCharacterTripPositionByEventAction($slug, $event, Request $request)
     {
@@ -381,14 +376,13 @@ class CharactersController extends FOSRestController
     }
 
     /**
+     * GET if a single character was present at an event.
      *
-     * GET Route annotation.
      * @Get("/character/{slug}/event/{event}/present.{_format}")
      * @param String $slug
      * @param String $event
      * @param Request $request
      * @return JsonResponse|Image
-     *
      */
     public function getCharacterTripPresentByEventAction($slug, $event, Request $request)
     {

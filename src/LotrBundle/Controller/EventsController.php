@@ -9,15 +9,19 @@ use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\Annotations\Get;
 use Symfony\Component\Validator\Constraints\Image;
 
+/**
+ * Class EventsController
+ * Controller for all Events routes
+ * @package LotrBundle\Controller
+ */
 class EventsController extends FOSRestController
 {
 	/**
+	 * GET all the events (id, slug, name, date, dateEnd, coordX, coordY).
 	 *
-	 * GET Route annotation.
 	 * @Get("/events.{_format}")
 	 * @param Request $request
 	 * @return JsonResponse|Image
-	 *
 	 */
 	public function getEventsAction(Request $request)
 	{
@@ -35,13 +39,12 @@ class EventsController extends FOSRestController
 	}
 
 	/**
+	 * GET a single events (id, slug, name, date, dateEnd, coordX, coordY).
 	 *
-	 * GET Route annotation.
 	 * @Get("/event/{slug}.{_format}")
 	 * @param Request $request
 	 * @param String $slug
 	 * @return JsonResponse|Image
-	 *
 	 */
 	public function getEventAction($slug, Request $request)
 	{
@@ -64,12 +67,11 @@ class EventsController extends FOSRestController
 	}
 
 	/**
+	 * GET the position of all characters during a specific event.
 	 *
-	 * GET Route annotation.
 	 * @Get("/event/{slug}/position/characters.{_format}")
 	 * @param String $slug
 	 * @return JsonResponse
-	 *
 	 */
 	public function getEventPositionCharactersAction($slug)
 	{
@@ -90,12 +92,11 @@ class EventsController extends FOSRestController
 	}
 
 	/**
+	 * GET who was in a specific event (at a specific date during a specific period), in all characters.
 	 *
-	 * GET Route annotation.
 	 * @Get("/event/{slug}/present/characters.{_format}")
 	 * @param String $slug
 	 * @return JsonResponse
-	 *
 	 */
 	public function getEventPresentCharactersAction($slug)
 	{
