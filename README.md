@@ -5,10 +5,13 @@
 * Magali Rivière
 * Alexis Subias
 * Louis Piechowiak
+
 ## Context
 Some text
+
 ## Installation
 Some text
+
 ## Use the API - Routing
 ### Characters
 ***
