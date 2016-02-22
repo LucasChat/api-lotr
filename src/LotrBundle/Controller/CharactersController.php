@@ -99,6 +99,9 @@ class CharactersController extends FOSRestController
 
 
 
+
+
+
     public function getCharacterAction($slug)
     {
         $em = $this->getDoctrine()->getManager();
@@ -108,7 +111,7 @@ class CharactersController extends FOSRestController
         return $this->handleView($view);
     }
 
-    public function getCharacterTripByDateAction($slug, $date)
+    public function getCharacterTripByDateAction($slug, $date, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $character = $em->getRepository('LotrBundle:Characters')->findBySlug($slug);
@@ -123,11 +126,16 @@ class CharactersController extends FOSRestController
         $trip = $em->getRepository('LotrBundle:CharactersTrip')
             ->getCharactersTripByDateForOne($character, $date);
 
+        if($request->query->get('format') == 'png' && gettype($trip) == 'array')
+        {
+            $this->get('map_generator')->generate($request->query->get('type'), $trip);
+        }
+
         $view = $this->view($trip);
         return $this->handleView($view);
     }
 
-    public function getCharacterTripByPlaceAction($slug, $place)
+    public function getCharacterTripByPlaceAction($slug, $place, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $character = $em->getRepository('LotrBundle:Characters')->findBySlug($slug);
@@ -146,13 +154,18 @@ class CharactersController extends FOSRestController
         $trip = $em->getRepository('LotrBundle:CharactersTrip')
             ->getCharactersTripByCoordForOne($character, $place[0]->getCoordx(), $place[0]->getCoordy());
 
+        if($request->query->get('format') == 'png' && gettype($trip) == 'array')
+        {
+            $this->get('map_generator')->generate($request->query->get('type'), $trip, $place);
+        }
+
         $results = [];
         array_push($results, $place, $trip);
         $view = $this->view($results);
         return $this->handleView($view);
     }
 
-    public function getCharacterTripByPlaceAndDateAction($slug, $place, $date)
+    public function getCharacterTripByPlaceAndDateAction($slug, $place, $date, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $character = $em->getRepository('LotrBundle:Characters')->findBySlug($slug);
@@ -173,13 +186,18 @@ class CharactersController extends FOSRestController
         $trip = $em->getRepository('LotrBundle:CharactersTrip')
             ->getCharactersTripByCoordAndDateForOne($character, $place[0]->getCoordx(), $place[0]->getCoordy(), $date);
 
+        if($request->query->get('format') == 'png' && gettype($trip) == 'array')
+        {
+            $this->get('map_generator')->generate($request->query->get('type'), $trip, $place);
+        }
+
         $results = [];
         array_push($results, $place, $trip);
         $view = $this->view($results);
         return $this->handleView($view);
     }
 
-    public function getCharacterTripByPeriodAction($slug, $date1, $date2)
+    public function getCharacterTripByPeriodAction($slug, $date1, $date2, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $character = $em->getRepository('LotrBundle:Characters')->findBySlug($slug);
@@ -195,11 +213,16 @@ class CharactersController extends FOSRestController
         $trip = $em->getRepository('LotrBundle:CharactersTrip')
             ->getCharactersTripByPeriodForOne($character, $date1, $date2);
 
+        if($request->query->get('format') == 'png' && gettype($trip) == 'array')
+        {
+            $this->get('map_generator')->generate($request->query->get('type'), $trip);
+        }
+
         $view = $this->view($trip);
         return $this->handleView($view);
     }
 
-    public function getCharacterTripByPlaceAndPeriodAction($slug, $place, $date1, $date2)
+    public function getCharacterTripByPlaceAndPeriodAction($slug, $place, $date1, $date2, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $character = $em->getRepository('LotrBundle:Characters')->findBySlug($slug);
@@ -218,13 +241,18 @@ class CharactersController extends FOSRestController
         $trip = $em->getRepository('LotrBundle:CharactersTrip')
             ->getOneCharactersTripByPlaceAndPeriodForOne($character, $place[0]->getCoordx(), $place[0]->getCoordy(), $date1, $date2);
 
+        if($request->query->get('format') == 'png' && gettype($trip) == 'array')
+        {
+            $this->get('map_generator')->generate($request->query->get('type'), $trip, $place);
+        }
+
         $results = [];
         array_push($results, $place, $trip);
         $view = $this->view($results);
         return $this->handleView($view);
     }
 
-    public function getCharacterTripPositionByEventAction($slug, $event)
+    public function getCharacterTripPositionByEventAction($slug, $event, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $character = $em->getRepository('LotrBundle:Characters')->findBySlug($slug);
@@ -242,13 +270,18 @@ class CharactersController extends FOSRestController
         $trip = $em->getRepository('LotrBundle:CharactersTrip')
             ->getCharactersTripByPeriodForOne($character, $event[0]->getDate() , $event[0]->getDateEnd());
 
+        if($request->query->get('format') == 'png' && gettype($trip) == 'array')
+        {
+            $this->get('map_generator')->generate($request->query->get('type'), $trip, $event);
+        }
+
         $results = [];
         array_push($results, $event, $trip);
         $view = $this->view($results);
         return $this->handleView($view);
     }
 
-    public function getCharacterTripPresentByEventAction($slug, $event)
+    public function getCharacterTripPresentByEventAction($slug, $event, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $character = $em->getRepository('LotrBundle:Characters')->findBySlug($slug);
@@ -265,6 +298,11 @@ class CharactersController extends FOSRestController
 
         $trip = $em->getRepository('LotrBundle:CharactersTrip')
             ->getOneCharactersTripByPlaceAndPeriodForOne($character, $event[0]->getCoordx(), $event[0]->getCoordy(), $event[0]->getDate(), $event[0]->getDateEnd());
+
+        if($request->query->get('format') == 'png' && gettype($trip) == 'array')
+        {
+            $this->get('map_generator')->generate($request->query->get('type'), $trip, $event);
+        }
 
         $results = [];
         array_push($results, $event, $trip);
