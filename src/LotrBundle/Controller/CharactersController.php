@@ -92,6 +92,11 @@ class CharactersController extends FOSRestController
                 ->getCharactersTripByPeriodForAll($date1, $date2);
         }
 
+        if($request->query->get('format') == 'png')
+        {
+            $this->get('map_generator')->generate($trip);
+        }
+
         $view = $this->view($trip);
         return $this->handleView($view);
     }
@@ -127,7 +132,7 @@ class CharactersController extends FOSRestController
         return $this->handleView($view);
     }
 
-    public function getCharacterTripByPlaceAction($slug, $place)
+    public function getCharacterTripByPlaceAction($slug, $place, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $character = $em->getRepository('LotrBundle:Characters')->findBySlug($slug);
@@ -145,6 +150,11 @@ class CharactersController extends FOSRestController
 
         $trip = $em->getRepository('LotrBundle:CharactersTrip')
             ->getCharactersTripByCoordForOne($character, $place[0]->getCoordx(), $place[0]->getCoordy());
+
+        if($request->query->get('format') == 'png')
+        {
+            $this->get('map_generator')->generate($trip);
+        }
 
         $results = [];
         array_push($results, $place, $trip);
@@ -179,7 +189,7 @@ class CharactersController extends FOSRestController
         return $this->handleView($view);
     }
 
-    public function getCharacterTripByPeriodAction($slug, $date1, $date2)
+    public function getCharacterTripByPeriodAction($slug, $date1, $date2, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $character = $em->getRepository('LotrBundle:Characters')->findBySlug($slug);
@@ -194,6 +204,11 @@ class CharactersController extends FOSRestController
 
         $trip = $em->getRepository('LotrBundle:CharactersTrip')
             ->getCharactersTripByPeriodForOne($character, $date1, $date2);
+
+        if($request->query->get('format') == 'png')
+        {
+            $this->get('map_generator')->generate($trip);
+        }
 
         $view = $this->view($trip);
         return $this->handleView($view);
