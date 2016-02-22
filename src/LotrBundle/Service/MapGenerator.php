@@ -9,6 +9,17 @@
 namespace LotrBundle\Service;
 
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Intl\ResourceBundle\ResourceBundleInterface;
+
+/**
+ * Class MapGenerator
+ *
+ * Service permettant de générer dynamiquement un parcours sur un png à partir de collections
+ *
+ * @package LotrBundle\Service
+ */
 class MapGenerator
 {
     public $color = [];
@@ -18,9 +29,11 @@ class MapGenerator
     public $image;
 
     /**
-     * generate the png map with
+     * Initialize the generation of the png map with good drawing of trip or places, and call others private methods
      *
-     * @params
+     * @param integer $mapType
+     * @param Collection|null $trip
+     * @param Collection|null $place
      */
     public function generate($mapType = 0, $trip = null, $place = null)
     {
@@ -71,8 +84,8 @@ class MapGenerator
     /**
      * Select good png with or without legend/grid/numbering
      *
-     * @params
-     * @return $image
+     * @param integer $mapType
+     * @return resource $image
      */
     private function setMap($mapType)
     {
@@ -102,6 +115,16 @@ class MapGenerator
         return $image;
     }
 
+    /**
+     * Print the character trip on png
+     *
+     * @param ResourceBundleInterface $image
+     * @param Collection $trip
+     * @param array $color
+     * @param array $status
+     * @param integer $oldCoordX
+     * @param integer $oldCoordY
+     */
     private function printTrip($image, $trip, $color, $status, $oldCoordX, $oldCoordY)
     {
         foreach ($trip as $item)
@@ -127,6 +150,15 @@ class MapGenerator
         }
     }
 
+    /**
+     * Print the places on png
+     *
+     * @param ResourceBundleInterface $image
+     * @param Collection $place
+     * @param Collection|null $trip
+     * @param array $color
+     *
+     */
     private function printPlace($image, $place, $trip, $color)
     {
         if($trip)
