@@ -107,6 +107,11 @@ class CharactersController extends FOSRestController
         $em = $this->getDoctrine()->getManager();
         $character = $em->getRepository('LotrBundle:Characters')->findBySlug($slug);
 
+        if(!$character)
+        {
+            throw new NotFoundHttpException("Character not found");
+        }
+
         $view = $this->view($character);
         return $this->handleView($view);
     }
