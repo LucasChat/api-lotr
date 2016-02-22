@@ -6,20 +6,26 @@ use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpFoundation\Request;
 
 class EventsController extends FOSRestController
 {
-	public function getEventsAction()
+	public function getEventsAction(Request $request)
 	{
 		$em = $this->getDoctrine()->getManager();
 
 		$events = $em->getRepository('LotrBundle:Events')->findAll();
 
+		if($request->query->get('format') == 'png' && gettype($events) == 'array')
+		{
+			$this->get('map_generator')->generate($request->query->get('type'), null, $events);
+		}
+
 		$view = $this->view($events);
 		return $this->handleView($view);
 	}
 
-	public function getEventAction($slug)
+	public function getEventAction($slug, Request $request)
 	{
 		$em = $this->getDoctrine()->getManager();
 
@@ -28,6 +34,11 @@ class EventsController extends FOSRestController
 		if(!$event)
 		{
 			throw new NotFoundHttpException("Event not found");
+		}
+
+		if($request->query->get('format') == 'png' && gettype($event) == 'array')
+		{
+			$this->get('map_generator')->generate($request->query->get('type'), null, $event);
 		}
 
 		$view = $this->view($event);
