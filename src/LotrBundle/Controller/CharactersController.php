@@ -49,7 +49,7 @@ class CharactersController extends FOSRestController
      * GET Route annotation.
      * @Get("/characters/date/{date}.{_format}")
      * @param Request $request
-     * @param \Datetime|string $date
+     * @param \Datetime|String $date
      * @return JsonResponse
      *
      */

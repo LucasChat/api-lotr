@@ -17,6 +17,11 @@ class MapGenerator
     public $oldCoordY;
     public $image;
 
+    /**
+     * generate the png map with
+     *
+     * @params
+     */
     public function generate($mapType = 0, $trip = null, $place = null)
     {
         header ("Content-type: image/png");
@@ -63,6 +68,12 @@ class MapGenerator
         //die();
     }
 
+    /**
+     * Select good png with or without legend/grid/numbering
+     *
+     * @params
+     * @return $image
+     */
     private function setMap($mapType)
     {
         switch ($mapType)
