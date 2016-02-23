@@ -4,10 +4,6 @@ lotr:
     prefix:   /
     defaults: {_format: json}
 
-app:
-    resource: "@AppBundle/Controller/"
-    type:     annotation
-
 admin:
     resource: "@LotrBundle/Controller/AdminController.php"
     type:     annotation
