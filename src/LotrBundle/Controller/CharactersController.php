@@ -154,6 +154,7 @@ class CharactersController extends FOSRestController
 
     /**
      * GET a single character position for a date (real date or event accepted).
+     * The format .png is accepted
      *
      * @Get("/character/{slug}/date/{date}.{_format}")
      * @param string $slug
@@ -188,6 +189,7 @@ class CharactersController extends FOSRestController
 
     /**
      * GET for a single character all days passed in a specific place.
+     * The format .png is accepted
      *
      * @Get("/character/{slug}/place/{place}.{_format}")
      * @param string $slug
@@ -228,6 +230,7 @@ class CharactersController extends FOSRestController
 
     /**
      * GET if a single character was in a specific place at a specific date (real date or event accepted).
+     * The format .png is accepted
      *
      * @Get("/character/{slug}/place/{place}/date/{date}.{_format}")
      * @param string $slug
@@ -271,6 +274,7 @@ class CharactersController extends FOSRestController
 
     /**
      * GET a single character position during a period (real date or event accepted).
+     * The format .png is accepted
      *
      * @Get("/character/{slug}/period/{date1}/{date2}.{_format}")
      * @param string $slug
@@ -307,6 +311,7 @@ class CharactersController extends FOSRestController
 
     /**
      * GET if a single character was in a specific place during a specific period (real date or event accepted).
+     * The format .png is accepted
      *
      * @Get("/character/{slug}/place/{place}/period/{date1}/{date2}.{_format}")
      * @param string $slug
@@ -349,6 +354,7 @@ class CharactersController extends FOSRestController
 
     /**
      * GET for a single character his position(s) during an event.
+     * The format .png is accepted
      *
      * @Get("/character/{slug}/event/{event}/position.{_format}")
      * @param string $slug
@@ -388,6 +394,7 @@ class CharactersController extends FOSRestController
 
     /**
      * GET if a single character was present at an event.
+     * The format .png is accepted
      *
      * @Get("/character/{slug}/event/{event}/present.{_format}")
      * @param string $slug

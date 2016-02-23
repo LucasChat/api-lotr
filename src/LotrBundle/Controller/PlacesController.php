@@ -18,6 +18,7 @@ class PlacesController extends FOSRestController
 {
     /**
      * GET all the places (id, slug, name, coordX and coordY).
+     * The format .png is accepted
      *
      * @Get("/places.{_format}")
      * @param Request $request
@@ -41,6 +42,7 @@ class PlacesController extends FOSRestController
 
     /**
      * GET a single place (id, slug, name, coordX and coordY).
+     * The format .png is accepted
      *
      * @Get("/place/{slug}.{_format}")
      * @param Request $request
@@ -77,9 +79,6 @@ class PlacesController extends FOSRestController
     public function getPlaceAllCharactersAction($slug)
     {
         $em = $this->getDoctrine()->getManager();
-
-//        $place_test = $this->getPlaceAction($slug)->getContent(true);
-//        $placeJson = $this->get('jms_serializer')->deserialize($place, 'LotrBundle\Entity\Places', 'json');
 
         $place = $em->getRepository('LotrBundle:Places')->findBySlug($slug);
         if(!$place)
