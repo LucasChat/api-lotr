@@ -3,6 +3,8 @@
 namespace LotrBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use phpDocumentor\Partials\Collection;
+
 
 /**
  * Class CharactersTripRepository
@@ -15,8 +17,8 @@ class CharactersTripRepository extends EntityRepository
     /**
      * Search a row for a specific date and a specific character
      *
-     * @param $character
-     * @param $date
+     * @param Collection $character
+     * @param string $date
      * @return array|string
      */
     public function getCharactersTripByDateForOne($character, $date)
@@ -40,9 +42,9 @@ class CharactersTripRepository extends EntityRepository
     /**
      * Search a row for a specific place and a specific character
      *
-     * @param $character
-     * @param $coordX
-     * @param $coordY
+     * @param Collection $character
+     * @param integer $coordX
+     * @param integer $coordY
      * @return array|string
      */
     public function getCharactersTripByCoordForOne($character, $coordX, $coordY)
@@ -67,10 +69,10 @@ class CharactersTripRepository extends EntityRepository
     /**
      * Search a row for a specific date, a specific place and a specific character
      *
-     * @param $character
-     * @param $coordX
-     * @param $coordY
-     * @param $date
+     * @param Collection $character
+     * @param integer $coordX
+     * @param integer $coordY
+     * @param string $date
      * @return array|string
      */
     public function getCharactersTripByCoordAndDateForOne($character, $coordX, $coordY, $date)
@@ -96,9 +98,9 @@ class CharactersTripRepository extends EntityRepository
     /**
      * Search the rows for a specific period and a specific character
      *
-     * @param $character
-     * @param $date1
-     * @param $date2
+     * @param Collection $character
+     * @param string $date1
+     * @param string $date2
      * @return array|string
      */
     public function getCharactersTripByPeriodForOne($character, $date1, $date2)
@@ -123,11 +125,11 @@ class CharactersTripRepository extends EntityRepository
     /**
      * Search the rows for a specific place during a specific period, for a specific character
      *
-     * @param $character
-     * @param $coordX
-     * @param $coordY
-     * @param $date1
-     * @param $date2
+     * @param Collection $character
+     * @param integer $coordX
+     * @param integer $coordY
+     * @param string $date1
+     * @param string $date2
      * @return array|string
      */
     public function getOneCharactersTripByPlaceAndPeriodForOne($character, $coordX, $coordY, $date1, $date2)
@@ -155,7 +157,7 @@ class CharactersTripRepository extends EntityRepository
     /**
      * Search the rows for a specific date for all characters
      *
-     * @param $date
+     * @param string $date
      * @return array|string
      */
     public function getCharactersTripByDateForAll($date)
@@ -178,8 +180,8 @@ class CharactersTripRepository extends EntityRepository
     /**
      * Search the rows for a specific place for all characters
      *
-     * @param $coordX
-     * @param $coordY
+     * @param integer $coordX
+     * @param integer $coordY
      * @return array|string
      */
     public function getCharactersTripByCoordForAll($coordX, $coordY)
@@ -203,9 +205,9 @@ class CharactersTripRepository extends EntityRepository
     /**
      * Search the rows for a specific date and a specific place for all characters
      *
-     * @param $coordX
-     * @param $coordY
-     * @param $date
+     * @param integer $coordX
+     * @param integer $coordY
+     * @param string $date
      * @return array|string
      */
     public function getCharactersTripByCoordAndDateForAll($coordX, $coordY, $date)
@@ -230,8 +232,8 @@ class CharactersTripRepository extends EntityRepository
     /**
      * Search the rows between a period for all characters
      *
-     * @param $date1
-     * @param $date2
+     * @param string $date1
+     * @param string $date2
      * @return array|string
      */
     public function getCharactersTripByPeriodForAll($date1, $date2)
@@ -255,10 +257,10 @@ class CharactersTripRepository extends EntityRepository
     /**
      * Search the rows between a period where place watch, for all characters
      *
-     * @param $date1
-     * @param $date2
-     * @param $coordX
-     * @param $coordY
+     * @param string $date1
+     * @param string $date2
+     * @param integer $coordX
+     * @param integer $coordY
      * @return array|string
      */
     public function getCharactersTripByPeriodAndPresenceForAll($date1, $date2, $coordX, $coordY)

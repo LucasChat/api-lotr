@@ -14,18 +14,33 @@ use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Intl\ResourceBundle\ResourceBundleInterface;
 
 /**
- * Class MapGenerator
- *
  * Service to dynamically generate a route on a png, from send collections
+ *
+ * Class MapGenerator
  *
  * @package LotrBundle\Service
  */
 class MapGenerator
 {
+    /**
+     * @var array
+     */
     public $color = [];
+    /**
+     * @var array
+     */
     public $status = [];
+    /**
+     * @var integer
+     */
     public $oldCoordX;
+    /**
+     * @var integer
+     */
     public $oldCoordY;
+    /**
+     * @var resource
+     */
     public $image;
 
     /**
@@ -78,7 +93,6 @@ class MapGenerator
 
         // Send png to the client
         imagepng($this->image);
-        //die();
     }
 
     /**
@@ -157,7 +171,6 @@ class MapGenerator
      * @param Collection $place
      * @param Collection|null $trip
      * @param array $color
-     *
      */
     private function printPlace($image, $place, $trip, $color)
     {
