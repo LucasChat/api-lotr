@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Constraints\Image;
 class CharactersController extends FOSRestController
 {
     /**
-     * GET all the characters definition (id, slug, name, race).
+     * GET all the characters (or a selection og them) definition (id, slug, name, race).
      *
      * @Get("/characters.{_format}")
      * @param Request $request
@@ -53,7 +53,7 @@ class CharactersController extends FOSRestController
      *
      * @Get("/characters/date/{date}.{_format}")
      * @param Request $request
-     * @param \Datetime|String $date
+     * @param \Datetime|string $date
      * @return JsonResponse
      */
     public function getCharactersByDateAction($date, Request $request)
@@ -135,7 +135,7 @@ class CharactersController extends FOSRestController
      * GET a single character definition (id, slug, name, race).
      *
      * @Get("/character/{slug}.{_format}")
-     * @param String $slug
+     * @param string $slug
      * @return JsonResponse
      */
     public function getCharacterAction($slug)
@@ -156,12 +156,13 @@ class CharactersController extends FOSRestController
      * GET a single character position for a date (real date or event accepted).
      *
      * @Get("/character/{slug}/date/{date}.{_format}")
-     * @param String $slug
-     * @param \Datetime|String $date
+     * @param string $slug
+     * @param \Datetime|string $date
      * @param Request $request
+     * @param string $_format
      * @return JsonResponse|Image
      */
-    public function getCharacterTripByDateAction($slug, $date, Request $request)
+    public function getCharacterTripByDateAction($slug, $date, Request $request, $_format)
     {
         $em = $this->getDoctrine()->getManager();
         $character = $em->getRepository('LotrBundle:Characters')->findBySlug($slug);
@@ -176,7 +177,7 @@ class CharactersController extends FOSRestController
         $trip = $em->getRepository('LotrBundle:CharactersTrip')
             ->getCharactersTripByDateForOne($character, $date);
 
-        if($request->query->get('format') == 'png' && gettype($trip) == 'array')
+        if($_format == 'png' && gettype($trip) == 'array')
         {
             $this->get('map_generator')->generate($request->query->get('type'), $trip);
         }
@@ -189,12 +190,13 @@ class CharactersController extends FOSRestController
      * GET for a single character all days passed in a specific place.
      *
      * @Get("/character/{slug}/place/{place}.{_format}")
-     * @param String $slug
-     * @param String $place
+     * @param string $slug
+     * @param string $place
      * @param Request $request
+     * @param string $_format
      * @return JsonResponse|Image
      */
-    public function getCharacterTripByPlaceAction($slug, $place, Request $request)
+    public function getCharacterTripByPlaceAction($slug, $place, Request $request, $_format)
     {
         $em = $this->getDoctrine()->getManager();
         $character = $em->getRepository('LotrBundle:Characters')->findBySlug($slug);
@@ -213,7 +215,7 @@ class CharactersController extends FOSRestController
         $trip = $em->getRepository('LotrBundle:CharactersTrip')
             ->getCharactersTripByCoordForOne($character, $place[0]->getCoordx(), $place[0]->getCoordy());
 
-        if($request->query->get('format') == 'png' && gettype($trip) == 'array')
+        if($_format == 'png' && gettype($trip) == 'array')
         {
             $this->get('map_generator')->generate($request->query->get('type'), $trip, $place);
         }
@@ -228,13 +230,14 @@ class CharactersController extends FOSRestController
      * GET if a single character was in a specific place at a specific date (real date or event accepted).
      *
      * @Get("/character/{slug}/place/{place}/date/{date}.{_format}")
-     * @param String $slug
-     * @param String $place
-     * @param \Datetime|String $date
+     * @param string $slug
+     * @param string $place
+     * @param \Datetime|string $date
      * @param Request $request
+     * @param string $_format
      * @return JsonResponse|Image
      */
-    public function getCharacterTripByPlaceAndDateAction($slug, $place, $date, Request $request)
+    public function getCharacterTripByPlaceAndDateAction($slug, $place, $date, Request $request, $_format)
     {
         $em = $this->getDoctrine()->getManager();
         $character = $em->getRepository('LotrBundle:Characters')->findBySlug($slug);
@@ -255,7 +258,7 @@ class CharactersController extends FOSRestController
         $trip = $em->getRepository('LotrBundle:CharactersTrip')
             ->getCharactersTripByCoordAndDateForOne($character, $place[0]->getCoordx(), $place[0]->getCoordy(), $date);
 
-        if($request->query->get('format') == 'png' && gettype($trip) == 'array')
+        if($_format == 'png' && gettype($trip) == 'array')
         {
             $this->get('map_generator')->generate($request->query->get('type'), $trip, $place);
         }
@@ -270,13 +273,14 @@ class CharactersController extends FOSRestController
      * GET a single character position during a period (real date or event accepted).
      *
      * @Get("/character/{slug}/period/{date1}/{date2}.{_format}")
-     * @param String $slug
-     * @param \Datetime|String $date1
-     * @param \Datetime|String $date2
+     * @param string $slug
+     * @param \Datetime|string $date1
+     * @param \Datetime|string $date2
      * @param Request $request
+     * @param string $_format
      * @return JsonResponse|Image
      */
-    public function getCharacterTripByPeriodAction($slug, $date1, $date2, Request $request)
+    public function getCharacterTripByPeriodAction($slug, $date1, $date2, Request $request, $_format)
     {
         $em = $this->getDoctrine()->getManager();
         $character = $em->getRepository('LotrBundle:Characters')->findBySlug($slug);
@@ -292,7 +296,7 @@ class CharactersController extends FOSRestController
         $trip = $em->getRepository('LotrBundle:CharactersTrip')
             ->getCharactersTripByPeriodForOne($character, $date1, $date2);
 
-        if($request->query->get('format') == 'png' && gettype($trip) == 'array')
+        if($_format == 'png' && gettype($trip) == 'array')
         {
             $this->get('map_generator')->generate($request->query->get('type'), $trip);
         }
@@ -305,14 +309,15 @@ class CharactersController extends FOSRestController
      * GET if a single character was in a specific place during a specific period (real date or event accepted).
      *
      * @Get("/character/{slug}/place/{place}/period/{date1}/{date2}.{_format}")
-     * @param String $slug
-     * @param String $place
-     * @param \Datetime|String $date1
-     * @param \Datetime|String $date2
+     * @param string $slug
+     * @param string $place
+     * @param \Datetime|string $date1
+     * @param \Datetime|string $date2
      * @param Request $request
+     * @param string $_format
      * @return JsonResponse|Image
      */
-    public function getCharacterTripByPlaceAndPeriodAction($slug, $place, $date1, $date2, Request $request)
+    public function getCharacterTripByPlaceAndPeriodAction($slug, $place, $date1, $date2, Request $request, $_format)
     {
         $em = $this->getDoctrine()->getManager();
         $character = $em->getRepository('LotrBundle:Characters')->findBySlug($slug);
@@ -331,7 +336,7 @@ class CharactersController extends FOSRestController
         $trip = $em->getRepository('LotrBundle:CharactersTrip')
             ->getOneCharactersTripByPlaceAndPeriodForOne($character, $place[0]->getCoordx(), $place[0]->getCoordy(), $date1, $date2);
 
-        if($request->query->get('format') == 'png' && gettype($trip) == 'array')
+        if($_format == 'png' && gettype($trip) == 'array')
         {
             $this->get('map_generator')->generate($request->query->get('type'), $trip, $place);
         }
@@ -346,12 +351,13 @@ class CharactersController extends FOSRestController
      * GET for a single character his position(s) during an event.
      *
      * @Get("/character/{slug}/event/{event}/position.{_format}")
-     * @param String $slug
-     * @param String $event
+     * @param string $slug
+     * @param string $event
      * @param Request $request
+     * @param string $_format
      * @return JsonResponse|Image
      */
-    public function getCharacterTripPositionByEventAction($slug, $event, Request $request)
+    public function getCharacterTripPositionByEventAction($slug, $event, Request $request, $_format)
     {
         $em = $this->getDoctrine()->getManager();
         $character = $em->getRepository('LotrBundle:Characters')->findBySlug($slug);
@@ -369,7 +375,7 @@ class CharactersController extends FOSRestController
         $trip = $em->getRepository('LotrBundle:CharactersTrip')
             ->getCharactersTripByPeriodForOne($character, $event[0]->getDate() , $event[0]->getDateEnd());
 
-        if($request->query->get('format') == 'png' && gettype($trip) == 'array')
+        if($_format == 'png' && gettype($trip) == 'array')
         {
             $this->get('map_generator')->generate($request->query->get('type'), $trip, $event);
         }
@@ -384,12 +390,13 @@ class CharactersController extends FOSRestController
      * GET if a single character was present at an event.
      *
      * @Get("/character/{slug}/event/{event}/present.{_format}")
-     * @param String $slug
-     * @param String $event
+     * @param string $slug
+     * @param string $event
      * @param Request $request
+     * @param string $_format
      * @return JsonResponse|Image
      */
-    public function getCharacterTripPresentByEventAction($slug, $event, Request $request)
+    public function getCharacterTripPresentByEventAction($slug, $event, Request $request, $_format)
     {
         $em = $this->getDoctrine()->getManager();
         $character = $em->getRepository('LotrBundle:Characters')->findBySlug($slug);
@@ -407,7 +414,7 @@ class CharactersController extends FOSRestController
         $trip = $em->getRepository('LotrBundle:CharactersTrip')
             ->getOneCharactersTripByPlaceAndPeriodForOne($character, $event[0]->getCoordx(), $event[0]->getCoordy(), $event[0]->getDate(), $event[0]->getDateEnd());
 
-        if($request->query->get('format') == 'png' && gettype($trip) == 'array')
+        if($_format == 'png' && gettype($trip) == 'array')
         {
             $this->get('map_generator')->generate($request->query->get('type'), $trip, $event);
         }
