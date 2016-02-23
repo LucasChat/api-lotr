@@ -21,15 +21,16 @@ class EventsController extends FOSRestController
 	 *
 	 * @Get("/events.{_format}")
 	 * @param Request $request
+	 * @param string $_format
 	 * @return JsonResponse|Image
 	 */
-	public function getEventsAction(Request $request)
+	public function getEventsAction(Request $request, $_format)
 	{
 		$em = $this->getDoctrine()->getManager();
 
 		$events = $em->getRepository('LotrBundle:Events')->findAll();
 
-		if($request->query->get('format') == 'png' && gettype($events) == 'array')
+		if($_format == 'png' && gettype($events) == 'array')
 		{
 			$this->get('map_generator')->generate($request->query->get('type'), null, $events);
 		}
@@ -43,10 +44,11 @@ class EventsController extends FOSRestController
 	 *
 	 * @Get("/event/{slug}.{_format}")
 	 * @param Request $request
-	 * @param String $slug
+	 * @param string $slug
+	 * @param string $_format
 	 * @return JsonResponse|Image
 	 */
-	public function getEventAction($slug, Request $request)
+	public function getEventAction($slug, Request $request, $_format)
 	{
 		$em = $this->getDoctrine()->getManager();
 
@@ -57,7 +59,7 @@ class EventsController extends FOSRestController
 			throw new NotFoundHttpException("Event not found");
 		}
 
-		if($request->query->get('format') == 'png' && gettype($event) == 'array')
+		if($_format == 'png' && gettype($event) == 'array')
 		{
 			$this->get('map_generator')->generate($request->query->get('type'), null, $event);
 		}
@@ -70,7 +72,7 @@ class EventsController extends FOSRestController
 	 * GET the position of all characters during a specific event.
 	 *
 	 * @Get("/event/{slug}/position/characters.{_format}")
-	 * @param String $slug
+	 * @param string $slug
 	 * @return JsonResponse
 	 */
 	public function getEventPositionCharactersAction($slug)
@@ -95,7 +97,7 @@ class EventsController extends FOSRestController
 	 * GET who was in a specific event (at a specific date during a specific period), in all characters.
 	 *
 	 * @Get("/event/{slug}/present/characters.{_format}")
-	 * @param String $slug
+	 * @param string $slug
 	 * @return JsonResponse
 	 */
 	public function getEventPresentCharactersAction($slug)

@@ -21,15 +21,16 @@ class PlacesController extends FOSRestController
      *
      * @Get("/places.{_format}")
      * @param Request $request
+     * @param string $_format
      * @return JsonResponse|Image
      */
-    public function getPlacesAction(Request $request)
+    public function getPlacesAction(Request $request, $_format)
     {
         $em = $this->getDoctrine()->getManager();
 
         $places = $em->getRepository('LotrBundle:Places')->findAll();
 
-        if($request->query->get('format') == 'png' && gettype($places) == 'array')
+        if($_format == 'png' && gettype($places) == 'array')
         {
             $this->get('map_generator')->generate($request->query->get('type'), null, $places);
         }
@@ -43,10 +44,11 @@ class PlacesController extends FOSRestController
      *
      * @Get("/place/{slug}.{_format}")
      * @param Request $request
-     * @param String $slug
+     * @param string $slug
+     * @param string $_format
      * @return JsonResponse|Image
      */
-    public function getPlaceAction($slug, Request $request)
+    public function getPlaceAction($slug, Request $request, $_format)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -56,7 +58,7 @@ class PlacesController extends FOSRestController
             throw new NotFoundHttpException("Place not found");
         }
 
-        if($request->query->get('format') == 'png' && gettype($place) == 'array')
+        if($_format == 'png' && gettype($place) == 'array')
         {
             $this->get('map_generator')->generate($request->query->get('type'), null, $place);
         }
@@ -69,7 +71,7 @@ class PlacesController extends FOSRestController
      * GET date of passage of all characters in a specific place.
      *
      * @Get("/place/{slug}/characters.{_format}")
-     * @param String $slug
+     * @param string $slug
      * @return JsonResponse
      */
     public function getPlaceAllCharactersAction($slug)
@@ -98,8 +100,8 @@ class PlacesController extends FOSRestController
      * GET who was in a specific place at a specific date, in all characters.
      *
      * @Get("/place/{slug}/characters/date/{date}.{_format}")
-     * @param String $slug
-     * @param \Datetime|String $date
+     * @param string $slug
+     * @param \Datetime|string $date
      * @return JsonResponse
      */
     public function getPlaceAllCharactersByDateAction($slug, $date)
@@ -129,9 +131,9 @@ class PlacesController extends FOSRestController
      * GET who was in a specific place during a specific period, in all characters.
      *
      * @Get("/place/{slug}/characters/period/{date1}/{date2}.{_format}")
-     * @param String $slug
-     * @param \Datetime|String $date1
-     * @param \Datetime|String $date2
+     * @param string $slug
+     * @param \Datetime|string $date1
+     * @param \Datetime|string $date2
      * @return JsonResponse
      */
     public function getPlaceAllCharactersByPeriodAction($slug, $date1, $date2)
