@@ -182,7 +182,7 @@ class CharactersTripRepository extends EntityRepository
 
         if(!$result)
         {
-            $result = "error : nobody here at this date";
+            $result = "error : nobody here at this period";
         }
 
         return $result;
