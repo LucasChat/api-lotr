@@ -16,6 +16,9 @@ class PlacesControllerTest extends WebTestCase
 
 		$this->assertEquals($json, $client->getResponse()->getContent());
 		$this->assertJson($client->getResponse()->getContent());
+
+//		$client->request('GET', '/places?format=png');
+//		$this->assertContains('image/png', $client->getResponse()->headers->get('content-type'));
 	}
 
 	public function testGetEvent()
