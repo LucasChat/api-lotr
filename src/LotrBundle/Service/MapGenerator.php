@@ -97,6 +97,12 @@ class MapGenerator
 
     /**
      * Select good png with or without legend/grid/numbering
+     * $mapType=0 -> no legend, no numbers, no grid  |
+     * $mapType=1 -> [legend], no numbers, no grid  |
+     * $mapType=2 -> no legend, [numbers], no grid  |
+     * $mapType=3 -> no legend, [numbers], [grid]  |
+     * $mapType=4 -> [legend], [numbers], no grid  |
+     * $mapType=5 -> [legend], [numbers], [grid]  |
      *
      * @param integer $mapType
      * @return resource $image

@@ -18,6 +18,7 @@ class EventsController extends FOSRestController
 {
 	/**
 	 * GET all the events (id, slug, name, date, dateEnd, coordX, coordY).
+	 * The format .png is accepted
 	 *
 	 * @Get("/events.{_format}")
 	 * @param Request $request
@@ -41,6 +42,7 @@ class EventsController extends FOSRestController
 
 	/**
 	 * GET a single events (id, slug, name, date, dateEnd, coordX, coordY).
+	 * The format .png is accepted
 	 *
 	 * @Get("/event/{slug}.{_format}")
 	 * @param Request $request
