@@ -2,91 +2,13 @@ lotr:
     resource: "@LotrBundle/Controller/"
     type:     annotation
     prefix:   /
+    defaults: {_format: json}
 
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
 
-# Character Alone
-get_character:
-    pattern:  /character/{slug}.{_format}
-    defaults: { _controller: LotrBundle:Characters:getCharacter, _format: json }
-
-get_character_by_date:
-    pattern:  /character/{slug}/date/{date}.{_format}
-    defaults: { _controller: LotrBundle:Characters:getCharacterTripByDate, _format: json }
-
-get_character_by_place:
-    pattern:  /character/{slug}/place/{place}.{_format}
-    defaults: { _controller: LotrBundle:Characters:getCharacterTripByPlace, _format: json }
-
-get_character_by_place_and_date:
-    pattern:  /character/{slug}/place/{place}/date/{date}.{_format}
-    defaults: { _controller: LotrBundle:Characters:getCharacterTripByPlaceAndDate, _format: json }
-
-get_character_by_period:
-    pattern:  /character/{slug}/period/{date1}/{date2}.{_format}
-    defaults: { _controller: LotrBundle:Characters:getCharacterTripByPeriod, _format: json }
-
-get_character_by_place_and_period:
-    pattern:  /character/{slug}/place/{place}/period/{date1}/{date2}.{_format}
-    defaults: { _controller: LotrBundle:Characters:getCharacterTripByPlaceAndPeriod, _format: json }
-
-get_character_position_by_event:
-    pattern:  /character/{slug}/event/{event}/position.{_format}
-    defaults: { _controller: LotrBundle:Characters:getCharacterTripPositionByEvent, _format: json }
-
-get_character_present_by_event:
-    pattern:  /character/{slug}/event/{event}/present.{_format}
-    defaults: { _controller: LotrBundle:Characters:getCharacterTripPresentByEvent, _format: json }
-
-# Multi Charater
-get_characters:
-    pattern:  /characters.{_format}
-    defaults: { _controller: LotrBundle:Characters:getCharacters, _format: json }
-
-get_characters_by_date:
-    pattern:  /characters/date/{date}.{_format}
-    defaults: { _controller: LotrBundle:Characters:getCharactersByDate, _format: json }
-
-get_characters_by_period:
-    pattern:  /characters/period/{date1}/{date2}.{_format}
-    defaults: { _controller: LotrBundle:Characters:getCharactersByPeriod, _format: json }
-
-# Places
-get_places:
-    pattern:  /places.{_format}
-    defaults: { _controller: LotrBundle:Places:getPlaces, _format: json }
-
-get_place:
-    pattern:  /place/{slug}.{_format}
-    defaults: { _controller: LotrBundle:Places:getPlace, _format: json }
-
-get_place_all_characters:
-    pattern:  /place/{slug}/characters.{_format}
-    defaults: { _controller: LotrBundle:Places:getPlaceAllCharacters, _format: json }
-
-get_place_all_characters_by_date:
-    pattern:  /place/{slug}/characters/date/{date}.{_format}
-    defaults: { _controller: LotrBundle:Places:getPlaceAllCharactersByDate, _format: json }
-
-get_place_all_characters_by_period:
-    pattern:  /place/{slug}/characters/period/{date1}/{date2}.{_format}
-    defaults: { _controller: LotrBundle:Places:getPlaceAllCharactersByPeriod, _format: json }
-
-# Events
-get_events:
-    pattern: /events.{_format}
-    defaults: { _controller: LotrBundle:Events:getEvents, _format: json }
-
-get_event:
-    pattern: /event/{slug}.{_format}
-    defaults: { _controller: LotrBundle:Events:getEvent, _format: json }
-
-get_event_position_characters:
-    pattern: /event/{slug}/position/characters.{_format}
-    defaults: { _controller: LotrBundle:Events:getEventPositionCharacters, _format: json }
-
-get_event_present_characters:
-    pattern: /event/{slug}/present/characters.{_format}
-    defaults: { _controller: LotrBundle:Events:getEventPresentCharacters, _format: json }
+admin:
+    resource: "@LotrBundle/Controller/AdminController.php"
+    type:     annotation
+    defaults: {_format: html}

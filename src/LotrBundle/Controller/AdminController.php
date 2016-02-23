@@ -9,18 +9,24 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use FOS\RestBundle\Controller\FOSRestController;
 use LotrBundle\Entity\Events;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\Form\Tests\Extension\Core\Type\IntegerTypeTest;
 use Symfony\Component\HttpFoundation\Request;
 
+
 /**
+ * Class AdminController
+ * Controller for the backoffice
+ * @package LotrBundle\Controller
+ *
  * @Route("/admin")
  */
 class AdminController extends FOSRestController
 {
     /**
+     * Show all Characters / Events / Races / Status / Places
+     *
      * @Route("/")
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function showAllAction()
     {
@@ -37,7 +43,11 @@ class AdminController extends FOSRestController
     }
 
     /**
+     * Add a new event to the database
+     *
      * @Route("/new/event")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function newEventAction(Request $request)
     {
@@ -95,7 +105,7 @@ class AdminController extends FOSRestController
             $em->persist($event);
             $em->flush();
 
-            return $this->redirectToRoute('get_event', array('slug' => $event->getSlug()));
+            return $this->redirectToRoute('lotr_events_getevent', array('slug' => $event->getSlug()));
         }
 
         return $this->render('admin/new.html.twig', array(
@@ -107,7 +117,11 @@ class AdminController extends FOSRestController
     }
 
     /**
+     * Add a new place to the database
+     *
      * @Route("/new/place")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function newPlaceAction(Request $request)
     {
@@ -155,7 +169,7 @@ class AdminController extends FOSRestController
             $em->persist($place);
             $em->flush();
 
-            return $this->redirectToRoute('get_place', array('slug' => $place->getSlug()));
+            return $this->redirectToRoute('lotr_places_getplace', array('slug' => $place->getSlug()));
         }
 
         return $this->render('admin/new.html.twig', array(
