@@ -17,7 +17,9 @@ This API allows you to get informations about characters, places and events of L
 * Map
 * ...
 
-**Example:** what did Frodon between the Council of Elrond and 3019, 03. 25 ?
+<font color="blue">**The api only returns data between 3018-09-23 and 3019-03-25**</font>
+
+**Example:** what did Frodon between the Council of Elrond and 3019-03-25 ?
 
 ```
 > http://127.0.0.1:8000/character/frodon/period/conseil-elrond/3019-03-25
@@ -88,11 +90,13 @@ Before importing the sql file, make sure you don't have a databse called **api-l
 $ php app/console server:run
 ```
 
-It will show you this message, you can access to the api!
+It will show you this message:
 
 ```sh
 $ [OK] Server running on http://127.0.0.1:8000 
 ```
+
+You can now use the api.
 
 127.0.0.1:8000 is the default uri, you can change it if you want
 
@@ -111,7 +115,7 @@ $ [OK] Server running on http://127.0.0.1:8000
 > GET /character/{slug}/event/{event}/present
 ```
 
-### Multi character
+### Multi characters
 
 ```sh
 > GET /characters
@@ -140,8 +144,46 @@ $ [OK] Server running on http://127.0.0.1:8000
 
 ### Map
 
+#### Get the basic map
+
 ```sh
 > GET /map
+````
+
+#### Available routes with map render
+
+```sh
+> GET /character/{slug}/date/{date}.png
+> GET /character/{slug}/place/{place}.png
+> GET /character/{slug}/place/{place}/date/{date}.png
+> GET /character/{slug}/period/{date1}/{date2}.png
+> GET /character/{slug}/place/{place}/period/{date1}/{date2}.png
+> GET /character/{slug}/event/{event}/position.png
+> GET /character/{slug}/event/{event}/present.png
+
+> GET /events.png
+> GET /event/{slug}.png
+
+> GET /places.png
+> GET /place/{slug}.png
+```
+
+#### Map types
+
+By default, the API returns the **0-type map** but you can change it by incrementing the type value.
+
+* **type=0** -> no legend, no numbering, no grid
+* **type=1** -> [legend], no numbering, no grid
+* **type=2** -> no legend, [numbering], no grid
+* **type=3** -> no legend, [numbering], [grid]
+* **type=4** -> [legend], [numbering], no grid
+* **type=5** -> [legend], [numbering], [grid]
+
+**Examples**
+
+```sh
+> GET /map?type=5
+> GET /character/{slug}/period/{date1}/{date2}.png?type=3
 ```
 
 ## License
