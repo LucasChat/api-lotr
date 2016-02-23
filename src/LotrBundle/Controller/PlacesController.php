@@ -3,14 +3,26 @@
 namespace LotrBundle\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
-use LotrBundle\LotrBundle;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
+use FOS\RestBundle\Controller\Annotations\Get;
+use Symfony\Component\Validator\Constraints\Image;
 
+/**
+ * Class PlacesController
+ * Controller for all Places routes
+ * @package LotrBundle\Controller
+ */
 class PlacesController extends FOSRestController
 {
+    /**
+     * GET all the places (id, slug, name, coordX and coordY).
+     *
+     * @Get("/places.{_format}")
+     * @param Request $request
+     * @return JsonResponse|Image
+     */
     public function getPlacesAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
@@ -26,7 +38,14 @@ class PlacesController extends FOSRestController
         return $this->handleView($view);
     }
 
-
+    /**
+     * GET a single place (id, slug, name, coordX and coordY).
+     *
+     * @Get("/place/{slug}.{_format}")
+     * @param Request $request
+     * @param String $slug
+     * @return JsonResponse|Image
+     */
     public function getPlaceAction($slug, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
@@ -46,6 +65,13 @@ class PlacesController extends FOSRestController
         return $this->handleView($view);
     }
 
+    /**
+     * GET date of passage of all characters in a specific place.
+     *
+     * @Get("/place/{slug}/characters.{_format}")
+     * @param String $slug
+     * @return JsonResponse
+     */
     public function getPlaceAllCharactersAction($slug)
     {
         $em = $this->getDoctrine()->getManager();
@@ -68,6 +94,14 @@ class PlacesController extends FOSRestController
         return $this->handleView($view);
     }
 
+    /**
+     * GET who was in a specific place at a specific date, in all characters.
+     *
+     * @Get("/place/{slug}/characters/date/{date}.{_format}")
+     * @param String $slug
+     * @param \Datetime|String $date
+     * @return JsonResponse
+     */
     public function getPlaceAllCharactersByDateAction($slug, $date)
     {
         $results = [];
@@ -91,6 +125,15 @@ class PlacesController extends FOSRestController
         return $this->handleView($view);
     }
 
+    /**
+     * GET who was in a specific place during a specific period, in all characters.
+     *
+     * @Get("/place/{slug}/characters/period/{date1}/{date2}.{_format}")
+     * @param String $slug
+     * @param \Datetime|String $date1
+     * @param \Datetime|String $date2
+     * @return JsonResponse
+     */
     public function getPlaceAllCharactersByPeriodAction($slug, $date1, $date2)
     {
         $results = [];
