@@ -327,6 +327,9 @@ class CharactersController extends FOSRestController
         $em = $this->getDoctrine()->getManager();
         $character = $em->getRepository('LotrBundle:Characters')->findBySlug($slug);
 
+        $date1 = $this->get('event_to_date')->transform($date1, $em);
+        $date2 = $this->get('event_to_date')->transform($date2, $em);
+
         if(!$character)
         {
             throw new NotFoundHttpException("Character not found");
