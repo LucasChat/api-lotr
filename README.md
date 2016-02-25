@@ -17,7 +17,7 @@ This API allows you to get informations about characters, places and events of L
 * Map
 * ...
 
-<font color="blue">**The api only returns data between 3018-09-23 and 3019-03-25**</font>
+**The api only returns data between 3018-09-23 and 3019-03-25**
 
 **Example:** what did Frodon between the Council of Elrond and 3019-03-25 ?
 
@@ -76,9 +76,21 @@ $ cd api-lotr
 $ composer install
 ```
 
+At the end of the installation, you have to enter some informations about the databased used:
+
+* **database_host:** 127.0.0.1
+* **database_port:** null by default or your database port
+* **database_name:** api-lotr
+* **datable_user:** root by default
+* **datable_password:** root by default for Mac users or null by default for Windows users
+
+For the other parameters, just press ***enter*** to use the default configuration.
+
 **2. Import the database**
 
 Before importing the sql file, make sure you don't have a databse called **api-lotr** because the importation will create the database for you.
+
+The sql file is in this folder: **api-lotr/src/LotrBundle/Resources/sql/**
 
 **3. Check if PHP GD2 is activate to turn on png**
 
@@ -99,6 +111,10 @@ $ [OK] Server running on http://127.0.0.1:8000
 You can now use the api.
 
 127.0.0.1:8000 is the default uri, you can change it if you want
+
+## Databse schema
+
+![Databse Schema](http://jean-lawyimwan.fr/img/Schema_bdd_api_lotr.png)
 
 ## Routes
 
