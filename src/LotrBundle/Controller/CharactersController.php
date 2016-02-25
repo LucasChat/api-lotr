@@ -1,6 +1,7 @@
 <?php
 namespace LotrBundle\Controller;
 
+use FOS\RestBundle\Controller\Annotations\Route;
 use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -16,7 +17,17 @@ use Symfony\Component\Validator\Constraints\Image;
 class CharactersController extends FOSRestController
 {
     /**
-     * GET all the characters (or a selection og them) definition (id, slug, name, race).
+     * Redirect to getCharactersAction
+     *
+     * @Route("/")
+     */
+    public function getIndexAction()
+    {
+        return $this->redirectToRoute('lotr_characters_getcharacters', array(), 301);
+    }
+
+    /**
+     * GET all the characters (or a selection of them) definition (id, slug, name, race).
      *
      * @Get("/characters.{_format}")
      * @param Request $request
@@ -326,6 +337,9 @@ class CharactersController extends FOSRestController
     {
         $em = $this->getDoctrine()->getManager();
         $character = $em->getRepository('LotrBundle:Characters')->findBySlug($slug);
+
+        $date1 = $this->get('event_to_date')->transform($date1, $em);
+        $date2 = $this->get('event_to_date')->transform($date2, $em);
 
         if(!$character)
         {
