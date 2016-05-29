@@ -8,6 +8,9 @@
 * Alexis Subias
 * Louis Piechowiak
 
+## Demonstration
+
+You can test this API at this address : [http://api-lotr.jean-lawyimwan.fr/](http://api-lotr.jean-lawyimwan.fr/)
 
 ## Context
 
