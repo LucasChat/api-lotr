@@ -14,7 +14,7 @@ You can test this API at this address : [http://api-lotr.jean-lawyimwan.fr/](htt
 
 ## Context
 
-This API allows you to get informations about characters, places and events of Lord of the Ring:
+This API based on Symfony 2.8 allows you to get informations about characters, places and events of Lord of the Ring:
 * Characters' names and races
 * Events & places positions
 * Map
